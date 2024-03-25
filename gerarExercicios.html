@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleção de Exercícios</title>
+    <style>
+        #tags span {
+            display: inline-block;
+            background-color: #eee;
+            padding: 5px;
+            margin: 2px;
+            border-radius: 5px;
+        }
+        video {
+            width: 100%;
+            max-width: 500px;
+        }
+        img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+        .exercicioAleatorio {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Selecione o Grupo de Exercícios:</h2>
+    <select id="grupoExerciciosSelect">
+        <option value="">Selecione um grupo</option>
+    </select>
+
+    <button id="gerarExerciciosBtn">Gerar 3 Exercícios Aleatórios</button>
+    <div id="exerciciosAleatorios"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const grupoExerciciosSelect = document.getElementById('grupoExerciciosSelect');
+    const dados = {
+        "grupos": [
+            {
+                "nome": "Peito",
+                "exercicios": [
+                    {"titulo": "Supino Reto", "descricao": "Exercício para desenvolvimento do peitoral maior.", "musculosTrabalhados": ["Peitoral maior"], "foto": "supino-reto.jpg"},
+                    {"titulo": "Supino Inclinado", "descricao": "Foco no peitoral superior.", "musculosTrabalhados": ["Peitoral superior"], "foto": "supino-inclinado.jpg"},
+                    {"titulo": "Crossover", "descricao": "Exercício para definição do peitoral.", "musculosTrabalhados": ["Peitoral"], "foto": "crossover.jpg"},
+                    {"titulo": "Peck Deck", "descricao": "Foco na parte central do peito.", "musculosTrabalhados": ["Peitoral"], "foto": "peck-deck.jpg"},
+                    {"titulo": "Flexão de Braço", "descricao": "Trabalha peito, ombros e tríceps.", "musculosTrabalhados": ["Peitoral", "Ombros", "Tríceps"], "foto": "flexao.jpg"}
+                ]
+            },
+            {
+                "nome": "Costas",
+                "exercicios": [
+                    {"titulo": "Puxada Frontal", "descricao": "Trabalha a largura das costas.", "musculosTrabalhados": ["Latíssimo do dorso"], "foto": "puxada-frontal.jpg"},
+                    {"titulo": "Remada Curvada", "descricao": "Foco na espessura das costas.", "musculosTrabalhados": ["Trapézio", "Latíssimo do dorso"], "foto": "remada-curvada.jpg"},
+                    {"titulo": "Remada Baixa", "descricao": "Fortalece o meio das costas.", "musculosTrabalhados": ["Latíssimo do dorso"], "foto": "remada-baixa.jpg"},
+                    {"titulo": "Levantamento Terra", "descricao": "Exercício composto para costas.", "musculosTrabalhados": ["Costas", "Pernas"], "foto": "levantamento-terra.jpg"},
+                    {"titulo": "Pullover", "descricao": "Trabalha a parte superior das costas.", "musculosTrabalhados": ["Latíssimo do dorso"], "foto": "pullover.jpg"}
+                ]
+            }
+            // Outros grupos de exercícios podem ser adicionados aqui
+        ]
+    };
+
+    dados.grupos.forEach((grupo, indexGrupo) => {
+        let option = new Option(grupo.nome, indexGrupo);
+        grupoExerciciosSelect.add(option);
+    });
+
+    document.getElementById('gerarExerciciosBtn').addEventListener('click', function() {
+        let indexGrupoSelecionado = grupoExerciciosSelect.value;
+        if (indexGrupoSelecionado === "") {
+            alert('Por favor, selecione um grupo de exercícios.');
+            return;
+        }
+
+        let exercicios = dados.grupos[indexGrupoSelecionado].exercicios;
+        let exerciciosAleatorios = [];
+        
+        while (exerciciosAleatorios.length < 3 && exercicios.length > exerciciosAleatorios.length) {
+            let exercicioAleatorio = exercicios[Math.floor(Math.random() * exercicios.length)];
+            if (!exerciciosAleatorios.includes(exercicioAleatorio)) {
+                exerciciosAleatorios.push(exercicioAleatorio);
+            }
+        }
+
+        let container = document.getElementById('exerciciosAleatorios');
+        container.innerHTML = ''; // Limpa a lista anterior
+
+        exerciciosAleatorios.forEach(exercicio => {
+            let div = document.createElement('div');
+            div.classList.add('exercicioAleatorio');
+            div.innerHTML = `
+                <h3>${exercicio.titulo}</h3>
+                <p>${exercicio.descricao}</p>
+                <ul>${exercicio.musculosTrabalhados.map(musculo => `<li>${musculo}</li>`).join("")}</ul>
+                <img src="${exercicio.foto}" alt="${exercicio.titulo}" style="max-width:100%;">
+            `;
+            container.appendChild(div);
+        });
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleção de Exercícios</title>
+    <style>
+        #tags span {
+            display: inline-block;
+            background-color: #eee;
+            padding: 5px;
+            margin: 2px;
+            border-radius: 5px;
+        }
+        video {
+            width: 100%;
+            max-width: 500px;
+        }
+        img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Selecione o Grupo de Exercícios:</h2>
+    <select id="grupoExerciciosSelect">
+        <option>Selecione um grupo</option>
+        <!-- Grupos de exercícios adicionados via JavaScript -->
+    </select>
+
+    <h2>Selecione o Exercício:</h2>
+    <select id="exercicioSelect">
+        <option>Primeiro selecione um grupo</option>
+        <!-- Exercícios adicionados via JavaScript -->
+    </select>
+
+    <h1 id="titulo"></h1>
+    <p id="descricao"></p>
+    <h2>Músculos Trabalhados</h2>
+    <ul id="musculosTrabalhados"></ul>
+    <h2>Nível de Dificuldade</h2>
+    <p id="nivelDificuldade"></p>
+    <h2>Equipamento Necessário</h2>
+    <ul id="equipamentoNecessario"></ul>
+    <h2>Foto</h2>
+    <img id="foto" src="" alt="Imagem do Exercício">
+    <h2>Vídeo</h2>
+    <video controls id="video">
+        Seu navegador não suporta a tag de vídeo.
+    </video>
+    <h2>Tags</h2>
+    <div id="tags"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const grupoExerciciosSelect = document.getElementById('grupoExerciciosSelect');
+    const exercicioSelect = document.getElementById('exercicioSelect');
+    const dados = {
+        "grupos": [
+            {
+    "nome": "Peito",
+    "exercicios": [
+        {
+            "titulo": "Supino Reto",
+            "descricao": "Exercício para desenvolvimento do peitoral maior.",
+            "musculosTrabalhados": ["Peitoral maior", "Tríceps", "Deltoides"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Banco", "Barra", "Pesos"],
+            "foto": "url-da-imagem-supino.jpg",
+            "video": "url-do-video-supino.mp4",
+            "tags": ["peito", "força", "hipertrofia"]
+        },
+        {
+            "titulo": "Supino Inclinado com Halteres",
+            "descricao": "Foca no desenvolvimento da parte superior do peitoral e ombros.",
+            "musculosTrabalhados": ["Peitoral maior", "Deltoides", "Tríceps"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Banco inclinado", "Halteres"],
+            "foto": "url-da-imagem-supino-inclinado-halteres.jpg",
+            "video": "url-do-video-supino-inclinado-halteres.mp4",
+            "tags": ["peito", "força", "hipertrofia", "superior"]
+        },
+        {
+            "titulo": "Crossover no Cabo",
+            "descricao": "Exercício para definição e isolamento do peitoral.",
+            "musculosTrabalhados": ["Peitoral maior"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Crossover (polias)", "Cabo"],
+            "foto": "url-da-imagem-crossover-cabo.jpg",
+            "video": "url-do-video-crossover-cabo.mp4",
+            "tags": ["peito", "definição", "isolamento"]
+        },
+        {
+            "titulo": "Peck Deck",
+            "descricao": "Visa o isolamento do peitoral, trabalhando principalmente a contração.",
+            "musculosTrabalhados": ["Peitoral maior"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Máquina Peck Deck"],
+            "foto": "url-da-imagem-peck-deck.jpg",
+            "video": "url-do-video-peck-deck.mp4",
+            "tags": ["peito", "isolamento", "máquina"]
+        }
+    ]
+},
+            {
+    "nome": "Costas",
+    "exercicios": [
+        {
+            "titulo": "Barra Fixa",
+            "descricao": "Excelente para o desenvolvimento de força e massa muscular nas costas.",
+            "musculosTrabalhados": ["Latíssimo do dorso", "Bíceps", "Trapézio"],
+            "nivelDificuldade": "Avançado",
+            "equipamentoNecessario": ["Barra fixa"],
+            "foto": "url-da-imagem-barra-fixa.jpg",
+            "video": "url-do-video-barra-fixa.mp4",
+            "tags": ["costas", "força", "hipertrofia"]
+        },
+        {
+            "titulo": "Remada Curvada",
+            "descricao": "Focado no desenvolvimento dos músculos das costas, especialmente o latíssimo do dorso.",
+            "musculosTrabalhados": ["Latíssimo do dorso", "Trapézio", "Romboides"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-remada-curvada.jpg",
+            "video": "url-do-video-remada-curvada.mp4",
+            "tags": ["costas", "remada", "hipertrofia"]
+        },
+        {
+            "titulo": "Pulldown",
+            "descricao": "Trabalha a largura das costas, enfocando no latíssimo do dorso.",
+            "musculosTrabalhados": ["Latíssimo do dorso"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Máquina de pulldown"],
+            "foto": "url-da-imagem-pulldown.jpg",
+            "video": "url-do-video-pulldown.mp4",
+            "tags": ["costas", "largura", "máquina"]
+        },
+        {
+            "titulo": "Remada Sentada",
+            "descricao": "Ideal para fortalecimento e definição das costas, com foco na região central e inferior.",
+            "musculosTrabalhados": ["Trapézio", "Latíssimo do dorso", "Romboides"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Máquina de remada"],
+            "foto": "url-da-imagem-remada-sentada.jpg",
+            "video": "url-do-video-remada-sentada.mp4",
+            "tags": ["costas", "remada", "definição"]
+        },
+        {
+            "titulo": "Levantamento Terra",
+            "descricao": "Exercício composto que envolve múltiplos grupos musculares, excelente para o desenvolvimento das costas.",
+            "musculosTrabalhados": ["Erector spinae", "Latíssimo do dorso", "Trapézio", "Glúteos", "Isquiotibiais"],
+            "nivelDificuldade": "Avançado",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-levantamento-terra.jpg",
+            "video": "url-do-video-levantamento-terra.mp4",
+            "tags": ["costas", "composto", "força"]
+        }
+    ]
+},{
+    "nome": "Ombros",
+    "exercicios": [
+        {
+            "titulo": "Desenvolvimento Militar",
+            "descricao": "Excelente para fortalecer e aumentar o volume dos ombros.",
+            "musculosTrabalhados": ["Deltoides", "Tríceps"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-desenvolvimento-militar.jpg",
+            "video": "url-do-video-desenvolvimento-militar.mp4",
+            "tags": ["ombros", "força", "hipertrofia"]
+        },
+        {
+            "titulo": "Elevação Lateral",
+            "descricao": "Focado no trabalho dos deltoides laterais, contribui para a largura dos ombros.",
+            "musculosTrabalhados": ["Deltoides laterais"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Haltes"],
+            "foto": "url-da-imagem-elevacao-lateral.jpg",
+            "video": "url-do-video-elevacao-lateral.mp4",
+            "tags": ["ombros", "definição", "isolado"]
+        },
+        {
+            "titulo": "Arnold Press",
+            "descricao": "Variação do desenvolvimento para ombros que envolve rotação, trabalhando os músculos de forma integral.",
+            "musculosTrabalhados": ["Deltoides", "Tríceps"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Haltes"],
+            "foto": "url-da-imagem-arnold-press.jpg",
+            "video": "url-do-video-arnold-press.mp4",
+            "tags": ["ombros", "volume", "arnold"]
+        },
+        {
+            "titulo": "Elevação Frontal",
+            "descricao": "Isola o trabalho nos deltoides frontais, ajudando na definição e força da parte frontal dos ombros.",
+            "musculosTrabalhados": ["Deltoides frontais"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Haltes", "Barra"],
+            "foto": "url-da-imagem-elevacao-frontal.jpg",
+            "video": "url-do-video-elevacao-frontal.mp4",
+            "tags": ["ombros", "frontal", "isolado"]
+        },
+        {
+            "titulo": "Face Pull",
+            "descricao": "Ótimo para a saúde dos ombros e trabalha os deltoides posteriores, ajudando na postura e na prevenção de lesões.",
+            "musculosTrabalhados": ["Deltoides posteriores", "Trapézio", "Romboides"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Corda", "Pulley"],
+            "foto": "url-da-imagem-face-pull.jpg",
+            "video": "url-do-video-face-pull.mp4",
+            "tags": ["ombros", "postura", "saúde"]
+        }
+    ]
+},
+{
+    "nome": "Lombar",
+    "exercicios": [
+        {
+            "titulo": "Hiperextensão",
+            "descricao": "Fortalece a região lombar e melhora a postura.",
+            "musculosTrabalhados": ["Eretores da espinha"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Banco de Hiperextensão"],
+            "foto": "url-da-imagem-hiperextensao.jpg",
+            "video": "url-do-video-hiperextensao.mp4",
+            "tags": ["lombar", "postura", "fortalecimento"]
+        },
+        {
+            "titulo": "Deadlift",
+            "descricao": "Exercício composto que envolve vários músculos, com foco na lombar.",
+            "musculosTrabalhados": ["Eretores da espinha", "Isquiotibiais", "Glúteos"],
+            "nivelDificuldade": "Avançado",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-deadlift.jpg",
+            "video": "url-do-video-deadlift.mp4",
+            "tags": ["lombar", "força", "hipertrofia"]
+        },
+        {
+            "titulo": "Good Morning",
+            "descricao": "Foca no fortalecimento da parte inferior das costas e melhora a flexibilidade.",
+            "musculosTrabalhados": ["Eretores da espinha"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-good-morning.jpg",
+            "video": "url-do-video-good-morning.mp4",
+            "tags": ["lombar", "flexibilidade", "força"]
+        },
+        {
+            "titulo": "Superman",
+            "descricao": "Exercício de peso corporal para fortalecimento da lombar e melhoria da postura.",
+            "musculosTrabalhados": ["Eretores da espinha"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Esteira", "Piso"],
+            "foto": "url-da-imagem-superman.jpg",
+            "video": "url-do-video-superman.mp4",
+            "tags": ["lombar", "postura", "peso corporal"]
+        }
+    ]
+},
+{
+    "nome": "Tríceps",
+    "exercicios": [
+        {
+            "titulo": "Tríceps no Pulley",
+            "descricao": "Focado no fortalecimento do tríceps, utilizando a polia alta.",
+            "musculosTrabalhados": ["Tríceps"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Pulley", "Barra reta ou corda"],
+            "foto": "url-da-imagem-triceps-no-pulley.jpg",
+            "video": "url-do-video-triceps-no-pulley.mp4",
+            "tags": ["tríceps", "isolado", "cabo"]
+        },
+        {
+            "titulo": "Mergulho em Banco",
+            "descricao": "Exercício de peso corporal para tríceps e peitoral inferior.",
+            "musculosTrabalhados": ["Tríceps", "Peitoral Inferior"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Banco"],
+            "foto": "url-da-imagem-mergulho-em-banco.jpg",
+            "video": "url-do-video-mergulho-em-banco.mp4",
+            "tags": ["tríceps", "peso corporal", "peito"]
+        },
+        {
+            "titulo": "Extensão de Tríceps Sobre a Cabeça",
+            "descricao": "Exercita o tríceps, enfatizando a parte longa do músculo.",
+            "musculosTrabalhados": ["Tríceps"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Haltere", "Kettlebell"],
+            "foto": "url-da-imagem-extensao-triceps-sobre-cabeca.jpg",
+            "video": "url-do-video-extensao-triceps-sobre-cabeca.mp4",
+            "tags": ["tríceps", "isolado", "haltere", "kettlebell"]
+        },
+        {
+            "titulo": "Tríceps Testa",
+            "descricao": "Visa o desenvolvimento do tríceps, podendo ser realizado com barra ou halteres.",
+            "musculosTrabalhados": ["Tríceps"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Halteres", "Banco"],
+            "foto": "url-da-imagem-triceps-testa.jpg",
+            "video": "url-do-video-triceps-testa.mp4",
+            "tags": ["tríceps", "barra", "halteres"]
+        },
+        {
+            "titulo": "Tríceps Coice",
+            "descricao": "Foca no tríceps, ideal para definição e isolamento muscular.",
+            "musculosTrabalhados": ["Tríceps"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Halteres"],
+            "foto": "url-da-imagem-triceps-coice.jpg",
+            "video": "url-do-video-triceps-coice.mp4",
+            "tags": ["tríceps", "isolado", "haltere"]
+        }
+    ]
+}, 
+{
+    "nome": "Bíceps",
+    "exercicios": [
+        {
+            "titulo": "Rosca Direta",
+            "descricao": "Exercício clássico para o desenvolvimento dos bíceps, utilizando uma barra reta.",
+            "musculosTrabalhados": ["Bíceps"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-rosca-direta.jpg",
+            "video": "url-do-video-rosca-direta.mp4",
+            "tags": ["bíceps", "barra", "hipertrofia"]
+        },
+        {
+            "titulo": "Rosca Alternada com Halteres",
+            "descricao": "Focaliza cada braço individualmente, melhorando a simetria e a força dos bíceps.",
+            "musculosTrabalhados": ["Bíceps"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Halteres"],
+            "foto": "url-da-imagem-rosca-alternada.jpg",
+            "video": "url-do-video-rosca-alternada.mp4",
+            "tags": ["bíceps", "halteres", "isolado"]
+        },
+        {
+            "titulo": "Rosca Martelo",
+            "descricao": "Foca no bíceps braquial e no músculo braquiorradial, oferecendo uma variação no estímulo muscular.",
+            "musculosTrabalhados": ["Bíceps", "Braquiorradial"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Halteres"],
+            "foto": "url-da-imagem-rosca-martelo.jpg",
+            "video": "url-do-video-rosca-martelo.mp4",
+            "tags": ["bíceps", "braquiorradial", "halteres"]
+        },
+        {
+            "titulo": "Rosca Concentrada",
+            "descricao": "Permite um trabalho isolado do bíceps, ideal para focar na contração muscular e na técnica.",
+            "musculosTrabalhados": ["Bíceps"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Haltere", "Banco"],
+            "foto": "url-da-imagem-rosca-concentrada.jpg",
+            "video": "url-do-video-rosca-concentrada.mp4",
+            "tags": ["bíceps", "isolado", "foco"]
+        },
+        {
+            "titulo": "Rosca Scott",
+            "descricao": "Utiliza o banco Scott para isolar os bíceps e minimizar a participação dos ombros no exercício.",
+            "musculosTrabalhados": ["Bíceps"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Banco Scott"],
+            "foto": "url-da-imagem-rosca-scott.jpg",
+            "video": "url-do-video-rosca-scott.mp4",
+            "tags": ["bíceps", "isolação", "banco scott"]
+        }
+    ]
+},
+{
+    "nome": "Antebraço",
+    "exercicios": [
+        {
+            "titulo": "Rosca de Punho com Barra",
+            "descricao": "Focado no fortalecimento dos músculos do antebraço, esse exercício é realizado com uma barra.",
+            "musculosTrabalhados": ["Flexores do antebraço"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-rosca-de-punho-com-barra.jpg",
+            "video": "url-do-video-rosca-de-punho-com-barra.mp4",
+            "tags": ["antebraço", "flexores", "barra"]
+        },
+        {
+            "titulo": "Extensão de Punho com Halter",
+            "descricao": "Este exercício trabalha a extensão do punho, fortalecendo a parte posterior do antebraço.",
+            "musculosTrabalhados": ["Extensores do antebraço"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Halter"],
+            "foto": "url-da-imagem-extensao-de-punho-com-halter.jpg",
+            "video": "url-do-video-extensao-de-punho-com-halter.mp4",
+            "tags": ["antebraço", "extensores", "halter"]
+        },
+        {
+            "titulo": "Rosca de Punho Inversa",
+            "descricao": "Variante da rosca de punho que enfatiza os músculos extensores do antebraço.",
+            "musculosTrabalhados": ["Extensores do antebraço"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-rosca-de-punho-inversa.jpg",
+            "video": "url-do-video-rosca-de-punho-inversa.mp4",
+            "tags": ["antebraço", "extensores", "rosca inversa"]
+        },
+        {
+            "titulo": "Curl de Antebraço com Barra por Trás",
+            "descricao": "Foca no fortalecimento e na hipertrofia dos flexores do antebraço, sendo realizado com a barra por trás do corpo.",
+            "musculosTrabalhados": ["Flexores do antebraço"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-curl-antebraco-com-barra-por-tras.jpg",
+            "video": "url-do-video-curl-antebraco-com-barra-por-tras.mp4",
+            "tags": ["antebraço", "flexores", "curl por trás"]
+        },
+        {
+            "titulo": "Farmer's Walk com Kettlebells",
+            "descricao": "Exercício funcional que trabalha os antebraços, além de melhorar a força de preensão e a estabilidade do core.",
+            "musculosTrabalhados": ["Flexores do antebraço", "Trapézio", "Core"],
+            "nivelDificuldade": "Avançado",
+            "equipamentoNecessario": ["Kettlebells"],
+            "foto": "url-da-imagem-farmers-walk-com-kettlebells.jpg",
+            "video": "url-do-video-farmers-walk-com-kettlebells.mp4",
+            "tags": ["antebraço", "preensão", "kettlebells", "farmer's walk"]
+        }
+    ]
+},
+{
+    "nome": "Trapézio",
+    "exercicios": [
+        {
+            "titulo": "Elevação de Ombros com Halteres",
+            "descricao": "Este exercício foca no fortalecimento do trapézio através da elevação dos ombros, utilizando halteres.",
+            "musculosTrabalhados": ["Trapézio superior"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Halteres"],
+            "foto": "url-da-imagem-elevacao-ombros-halteres.jpg",
+            "video": "url-do-video-elevacao-ombros-halteres.mp4",
+            "tags": ["trapézio", "halteres", "elevação de ombros"]
+        },
+        {
+            "titulo": "Encolhimento com Barra",
+            "descricao": "Focado em trabalhar o trapézio, este exercício é realizado com uma barra à frente do corpo.",
+            "musculosTrabalhados": ["Trapézio"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-encolhimento-com-barra.jpg",
+            "video": "url-do-video-encolhimento-com-barra.mp4",
+            "tags": ["trapézio", "barra", "encolhimento"]
+        },
+        {
+            "titulo": "Remada Alta",
+            "descricao": "A remada alta trabalha o trapézio e os ombros, sendo um exercício completo para a parte superior do corpo.",
+            "musculosTrabalhados": ["Trapézio", "Deltoides"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-remada-alta.jpg",
+            "video": "url-do-video-remada-alta.mp4",
+            "tags": ["trapézio", "ombros", "remada alta"]
+        },
+        {
+            "titulo": "Face Pull",
+            "descricao": "Exercício funcional que foca no trapézio e nos músculos posteriores dos ombros, melhorando a postura.",
+            "musculosTrabalhados": ["Trapézio", "Deltoides posteriores", "Romboides"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Corda", "Pulley"],
+            "foto": "url-da-imagem-face-pull.jpg",
+            "video": "url-do-video-face-pull.mp4",
+            "tags": ["trapézio", "postura", "face pull"]
+        },
+        {
+            "titulo": "Shrug com Barra por Trás",
+            "descricao": "Variante do shrug que foca na parte traseira do trapézio, realizado com a barra posicionada atrás do corpo.",
+            "musculosTrabalhados": ["Trapézio"],
+            "nivelDificuldade": "Avançado",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-shrug-barra-tras.jpg",
+            "video": "url-do-video-shrug-barra-tras.mp4",
+            "tags": ["trapézio", "shrug", "barra traseira"]
+        }
+    ]
+}, 
+{
+    "nome": "Pernas",
+    "exercicios": [
+        {
+            "titulo": "Agachamento Livre",
+            "descricao": "Exercício composto que mira no desenvolvimento dos quadríceps, glúteos e isquiotibiais.",
+            "musculosTrabalhados": ["Quadríceps", "Glúteos", "Isquiotibiais"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-agachamento-livre.jpg",
+            "video": "url-do-video-agachamento-livre.mp4",
+            "tags": ["quadríceps", "glúteos", "agachamento"]
+        },
+        {
+            "titulo": "Leg Press",
+            "descricao": "Focado no fortalecimento das pernas, especialmente os quadríceps.",
+            "musculosTrabalhados": ["Quadríceps", "Glúteos", "Isquiotibiais"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Máquina de Leg Press"],
+            "foto": "url-da-imagem-leg-press.jpg",
+            "video": "url-do-video-leg-press.mp4",
+            "tags": ["pernas", "leg press", "quadríceps"]
+        },
+        {
+            "titulo": "Cadeira Extensora",
+            "descricao": "Isola o trabalho nos quadríceps, ideal para definição muscular.",
+            "musculosTrabalhados": ["Quadríceps"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Máquina de Extensão de Pernas"],
+            "foto": "url-da-imagem-cadeira-extensora.jpg",
+            "video": "url-do-video-cadeira-extensora.mp4",
+            "tags": ["quadríceps", "isolado", "extensora"]
+        },
+        {
+            "titulo": "Mesa Flexora",
+            "descricao": "Concentra-se nos isquiotibiais, essencial para o equilíbrio muscular das pernas.",
+            "musculosTrabalhados": ["Isquiotibiais"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Mesa Flexora"],
+            "foto": "url-da-imagem-mesa-flexora.jpg",
+            "video": "url-do-video-mesa-flexora.mp4",
+            "tags": ["isquiotibiais", "flexora", "mesa"]
+        },
+        {
+            "titulo": "Elevação de Panturrilha em Pé",
+            "descricao": "Visa o fortalecimento e desenvolvimento das panturrilhas.",
+            "musculosTrabalhados": ["Panturrilhas"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Máquina de Panturrilha em Pé", "Pesos"],
+            "foto": "url-da-imagem-elevacao-panturrilha.jpg",
+            "video": "url-do-video-elevacao-panturrilha.mp4",
+            "tags": ["panturrilhas", "elevação", "pé"]
+        },
+        {
+            "titulo": "Glúteo na Polia",
+            "descricao": "Focado no trabalho dos músculos glúteos, promovendo hipertrofia e fortalecimento.",
+            "musculosTrabalhados": ["Glúteos"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Polia Baixa", "Tornozeleira"],
+            "foto": "url-da-imagem-gluteo-polia.jpg",
+            "video": "url-do-video-gluteo-polia.mp4",
+            "tags": ["glúteos", "polia", "hipertrofia"]
+        },
+        {
+            "titulo": "Stiff",
+            "descricao": "Exercício para fortalecimento dos isquiotibiais e glúteos, com ênfase na parte inferior das costas.",
+            "musculosTrabalhados": ["Isquiotibiais", "Glúteos", "Lombar"],
+            "nivelDificuldade": "Avançado",
+            "equipamentoNecessario": ["Barra", "Pesos"],
+            "foto": "url-da-imagem-stiff.jpg",
+            "video": "url-do-video-stiff.mp4",
+            "tags": ["isquiotibiais", "stiff", "lombar"] }, { "titulo": "Agachamento Búlgaro", "descricao": "Focado no trabalho unilateral das pernas, melhorando equilíbrio e força nos quadríceps e glúteos.", "musculosTrabalhados": ["Quadríceps", "Glúteos"], "nivelDificuldade": "Intermediário", "equipamentoNecessario": ["Banco"], "foto": "url-da-imagem-agachamento-bulgaro.jpg", "video": "url-do-video-agachamento-bulgaro.mp4", "tags": ["unilateral", "equilíbrio", "glúteos"] }, { "titulo": "Lunges", "descricao": "Trabalha pernas e glúteos, com foco em mobilidade e estabilidade.", "musculosTrabalhados": ["Quadríceps", "Glúteos", "Isquiotibiais"], "nivelDificuldade": "Iniciante", "equipamentoNecessario": ["Pesos (opcional)"], "foto": "url-da-imagem-lunges.jpg", "video": "url-do-video-lunges.mp4", "tags": ["pernas", "mobilidade", "lunges"] }, { "titulo": "Deadlifts Romano", "descricao": "Variação do deadlift que coloca mais ênfase nos isquiotibiais e glúteos.", "musculosTrabalhados": ["Isquiotibiais", "Glúteos"], "nivelDificuldade": "Intermediário", "equipamentoNecessario": ["Barra", "Pesos"], "foto": "url-da-imagem-deadlifts-romano.jpg", "video": "url-do-video-deadlifts-romano.mp4", "tags": ["deadlift", "isquiotibiais", "glúteos"] }, { "titulo": "Calf Raises Sentado", "descricao": "Focado no fortalecimento das panturrilhas, especialmente o músculo sóleo.", "musculosTrabalhados": ["Panturrilhas"], "nivelDificuldade": "Iniciante", "equipamentoNecessario": ["Máquina de Calf Raises ou Pesos"], "foto": "url-da-imagem-calf-raises-sentado.jpg", "video": "url-do-video-calf-raises-sentado.mp4", "tags": ["panturrilhas", "sentado", "sóleo"] } ] },
+            {
+    "nome": "Abdômen",
+    "exercicios": [
+        {
+            "titulo": "Prancha",
+            "descricao": "Fortalece toda a região do core, melhorando a postura e a estabilidade.",
+            "musculosTrabalhados": ["Abdômen", "Lombares", "Ombros"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Mat"],
+            "foto": "url-da-imagem-prancha.jpg",
+            "video": "url-do-video-prancha.mp4",
+            "tags": ["core", "estabilidade", "prancha"]
+        },
+        {
+            "titulo": "Elevação de Pernas",
+            "descricao": "Isola a parte inferior do abdômen, promovendo força e definição.",
+            "musculosTrabalhados": ["Abdômen inferior"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Barra fixa"],
+            "foto": "url-da-imagem-elevacao-de-pernas.jpg",
+            "video": "url-do-video-elevacao-de-pernas.mp4",
+            "tags": ["abdômen inferior", "definição", "força"]
+        },
+        {
+            "titulo": "Abdominal Bicicleta",
+            "descricao": "Trabalha os músculos oblíquos e retos do abdômen através de movimentos dinâmicos.",
+            "musculosTrabalhados": ["Abdômen", "Oblíquos"],
+            "nivelDificuldade": "Iniciante",
+            "equipamentoNecessario": ["Mat"],
+            "foto": "url-da-imagem-abdominal-bicicleta.jpg",
+            "video": "url-do-video-abdominal-bicicleta.mp4",
+            "tags": ["oblíquos", "dinâmico", "bicicleta"]
+        },
+        {
+            "titulo": "Russian Twist",
+            "descricao": "Focado no trabalho dos oblíquos, aumenta a força rotacional e a estabilidade do core.",
+            "musculosTrabalhados": ["Oblíquos", "Abdômen"],
+            "nivelDificuldade": "Intermediário",
+            "equipamentoNecessario": ["Peso (opcional)"],
+            "foto": "url-da-imagem-russian-twist.jpg",
+            "video": "url-do-video-russian-twist.mp4",
+            "tags": ["oblíquos", "rotacional", "estabilidade"]
+        },
+        {
+            "titulo": "Abdominal Canivete",
+            "descricao": "Exige força e coordenação, trabalhando a parte superior e inferior do abdômen simultaneamente.",
+            "musculosTrabalhados": ["Abdômen superior", "Abdômen inferior"],
+            "nivelDificuldade": "Avançado",
+            "equipamentoNecessario": ["Mat"],
+            "foto": "url-da-imagem-abdominal-canivete.jpg",
+            "video": "url-do-video-abdominal-canivete.mp4",
+            "tags": ["força", "coordenação", "canivete"]
+        }
+    ]
+},
+
+            // Continuação dos grupos e exercícios...
+        ]
+    };
+
+    // Preenchendo o select dos grupos de exercícios
+    dados.grupos.forEach((grupo, indexGrupo) => {
+        let option = new Option(grupo.nome, indexGrupo);
+        grupoExerciciosSelect.add(option);
+    });
+
+    // Evento de mudança no select de grupos
+    grupoExerciciosSelect.onchange = function() {
+        exercicioSelect.innerHTML = '';
+        exercicioSelect.add(new Option('Selecione um exercício', ''));
+
+        let exercicios = dados.grupos[this.value].exercicios;
+        exercicios.forEach((exercicio, indexExercicio) => {
+            let option = new Option(exercicio.titulo, indexExercicio);
+            exercicioSelect.add(option);
+        });
+    };
+
+    // Evento de mudança no select de exercícios
+    exercicioSelect.onchange = function() {
+        let grupoSelecionado = grupoExerciciosSelect.value;
+        let exercicioSelecionado = dados.grupos[grupoSelecionado].exercicios[this.value];
+
+        document.getElementById('titulo').textContent = exercicioSelecionado.titulo;
+        document.getElementById('descricao').textContent = exercicioSelecionado.descricao;
+        document.getElementById('nivelDificuldade').textContent = exercicioSelecionado.nivelDificuldade;
+        document.getElementById('foto').src = exercicioSelecionado.foto;
+        document.getElementById('video').src = exercicioSelecionado.video;
+
+        let musculosUl = document.getElementById('musculosTrabalhados');
+        musculosUl.innerHTML = '';
+        exercicioSelecionado.musculosTrabalhados.forEach(musculo => {
+            let li = document.createElement('li');
+            li.textContent = musculo;
+            musculosUl.appendChild(li);
+        });
+
+        let equipamentoUl = document.getElementById('equipamentoNecessario');
+        equipamentoUl.innerHTML = '';
+        exercicioSelecionado.equipamentoNecessario.forEach(equipamento => {
+            let li = document.createElement('li');
+            li.textContent = equipamento;
+            equipamentoUl.appendChild(li);
+        });
+
+        // Adição de tags
+        let tagsDiv = document.getElementById('tags');
+        tagsDiv.innerHTML = ''; // Limpa tags anteriores
+        exercicioSelecionado.tags.forEach(tag => {
+            let span = document.createElement('span');
+            span.textContent = tag;
+            tagsDiv.appendChild(span);
+        });
+    };
+});
+</script>
+
+</body>
+</html>

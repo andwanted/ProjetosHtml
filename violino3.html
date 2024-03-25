@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Espelho de Violino</title>
+    <style>/* Estilo da tabela e suas células */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    min-width: 120px; /* Largura mínima aumentada */
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+/* Cores para os dedos na tabela */
+.primeiro {
+    background-color: #ADD8E6; /* Azul claro */
+}
+.segundo {
+    background-color: #90EE90; /* Verde claro */
+}
+.terceiro {
+    background-color: #FFFFE0; /* Amarelo claro */
+}
+.quarto {
+    background-color: #FFC0CB; /* Rosa claro */
+}
+
+/* Legenda */
+.legenda {
+    margin-bottom: 20px;
+}
+.legenda div {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Espelho do violino */
+.violin-fretboard {
+    width: 300px;
+    height: 100px;
+    background-color: #8B4513; /* Cor de madeira */
+    margin: 20px auto; /* Centraliza */
+    position: relative;
+    border: 2px solid black;
+}
+
+/* Cordas do violino */
+.string {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: silver;
+}
+
+.string:nth-child(1) { top: 15px; }
+.string:nth-child(2) { top: 35px; }
+.string:nth-child(3) { top: 55px; }
+.string:nth-child(4) { top: 75px; }
+
+/* Forçar a orientação horizontal */
+@media screen and (orientation: portrait) {
+    body {
+        transform: rotate(-90deg);
+        transform-origin: right top;
+        width: 100vh;
+        height: 100vw;
+        overflow-x: hidden;
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+}
+
+/* Estilo para as notas musicais */
+.sheet-music {
+    border-top: 2px solid black;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.music-line {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-bottom: 10px;
+}
+
+.note {
+    white-space: nowrap;
+    margin-right: 10px;
+}
+.note-order {
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+}
+    </style>
+</head>
+<body>
+    <div class="input-container">
+        <div class="input-field">
+            <label for="note-wait-time">Nota e Tempo de Espera:</label>
+            <select id="note-wait-time">
+                <option value="0.5">0.5s de espera</option>
+                <option value="1">1s de espera</option>
+                <!-- Adicione mais opções de tempo de espera conforme necessário -->
+                <option value="Dó">Dó</option>
+                <option value="Dó#">Dó#</option>
+                <option value="Ré">Ré</option>
+                <option value="Ré#">Ré#</option>
+                <option value="Mi">Mi</option>
+                <option value="Fá">Fá</option>
+                <option value="Fá#">Fá#</option>
+                <option value="Sol">Sol</option>
+                <option value="Sol#">Sol#</option>
+                <option value="Lá">Lá</option>
+                <option value="Lá#">Lá#</option>
+                <option value="Si">Si</option>
+            </select>
+        </div>
+
+        <div class="input-field">
+            <label for="duration">Duração da Nota:</label>
+            <select id="duration">
+                <option value="0.5">0.5s</option>
+                <option value="1">1s</option>
+                <option value="1.5">1.5s</option>
+                <option value="2">2s</option>
+                <!-- Mais opções de duração podem ser adicionadas conforme necessário -->
+            </select>
+        </div>
+
+        <button id="addNote">Adicionar Nota</button>
+        <button id="readNotes">Ler Notas</button>
+    </div>
+    
+    <div class="legenda">
+  <div class="primeiro">1º Dedo</div>
+  <div class="segundo">2º Dedo</div>
+  <div class="terceiro">3º Dedo</div>
+  <div class="quarto">4º Dedo</div>
+</div>
+
+<table>
+  <tr>
+    <th>Corda</th>
+    <th>Solta</th>
+    <th class="primeiro">1</th>
+    <th class="segundo">2</th>
+    <th class="terceiro">3</th>
+    <th class="quarto">4</th>
+    <th class="primeiro">5</th>
+    <th class="segundo">6</th>
+    <th class="terceiro">7</th>
+    <th class="quarto">8</th>
+    <th class="primeiro">9</th>
+    <th class="segundo">10</th>
+    <th class="terceiro">11</th>
+    <th class="quarto">12</th>
+  </tr>
+  <tr>
+    <td>Sol (G)</td>
+    <td>Sol</td>
+    <td class="primeiro">Sol#/Láb</td>
+    <td class="segundo">Lá</td>
+    <td class="terceiro">Lá#/Sib</td>
+    <td class="quarto">Si</td>
+    <td class="primeiro">Dó</td>
+    <td class="segundo">Dó#/Réb</td>
+    <td class="terceiro">Ré</td>
+    <td class="quarto">Ré#/Mib</td>
+    <td class="primeiro">Mi</td>
+    <td class="segundo">Fá</td>
+    <td class="terceiro">Fá#/Solb</td>
+    <td class="quarto">Sol</td>
+  </tr>
+  <tr>
+    <td>Ré (D)</td>
+    <td>Ré</td>
+    <td class="primeiro">Ré#/Mib</td>
+    <td class="segundo">Mi</td>
+    <td class="terceiro">Fá</td>
+    <td class="quarto">Fá#/Solb</td>
+    <td class="primeiro">Sol</td>
+    <td class="segundo">Sol#/Láb</td>
+    <td class="terceiro">Lá</td>
+    <td class="quarto">Lá#/Sib</td>
+    <td class="primeiro">Si</td>
+    <td class="segundo">Dó</td>
+    <td class="terceiro">Dó#/Réb</td>
+    <td class="quarto">Ré</td>
+  </tr>
+  <tr>
+    <td>Lá (A)</td>
+    <td>Lá</td>
+    <td class="primeiro">Lá#/Sib</td>
+    <td class="segundo">Si</td>
+    <td class="terceiro">Dó</td>
+    <td class="quarto">Dó#/Réb</td>
+    <td class="primeiro">Ré</td>
+    <td class="segundo">Ré#/Mib</td>
+    <td class="terceiro">Mi</td>
+    <td class="quarto">Fá</td>
+    <td class="primeiro">Fá#/Solb</td>
+    <td class="segundo">Sol</td>
+    <td class="terceiro">Sol#/Láb</td>
+    <td class="quarto">Lá</td>
+  </tr>
+  <tr>
+    <td>Mi (E)</td>
+    <td>Mi</td>
+    <td class="primeiro">Fá</td>
+    <td class="segundo">Fá#/Solb</td>
+    <td class="terceiro">Sol</td>
+    <td class="quarto">Sol#/Láb</td>
+    <td class="primeiro">Lá</td>
+    <td class="segundo">Lá#/Sib</td>
+    <td class="terceiro">Si</td>
+    <td class="quarto">Dó</td>
+    <td class="primeiro">Dó#/Réb</td>
+    <td class="segundo">Ré</td>
+    <td class="terceiro">Ré#/Mib</td>
+    <td class="quarto">Mi</td>
+  </tr>
+   <tr>
+            <th>Nota</th>
+            <th>Tempo de Espera (segundos)</th>
+        </tr>
+</table>
+
+  
+
+    <div id="sheetMusic" class="sheet-music">
+        <!-- Linhas de música adicionadas aqui -->
+    </div>
+
+    <script>
+        
+        document.getElementById('readNotes').addEventListener('click', function() {
+    // Limpa as marcações anteriores
+    const frets = document.querySelectorAll('.violinfret');
+    frets.forEach(fret => {
+        fret.textContent = ''; // Limpa o texto existente
+    });
+
+    const notes = document.querySelectorAll('.note');
+    let order = 1; // Inicia a contagem das notas
+
+    notes.forEach(note => {
+        const noteText = note.textContent.split(',')[0]; // Pega o nome da nota sem a duração
+        // Encontra a célula correspondente na tabela e marca a ordem
+        for (let row of document.querySelectorAll('table tr')) {
+            for (let cell of row.querySelectorAll('td')) {
+                if (cell.textContent.trim() === noteText) {
+                    // Marca a célula com a ordem da nota
+                    if (!cell.classList.contains('marked')) { // Evita re-marcar a mesma nota
+                        const mark = document.createElement('span');
+                        mark.classList.add('note-order');
+                        mark.textContent = order;
+                        cell.appendChild(mark);
+                        cell.classList.add('marked'); // Marca a célula como já marcada
+                        order++; // Incrementa a ordem para a próxima nota
+                        break; // Sai do loop interno
+                    }
+                }
+            }
+        }
+    });
+});
+
+// Certifique-se de limpar as marcações ao adicionar novas notas ou reiniciar
+document.getElementById('addNote').addEventListener('click', function() {
+    const markedCells = document.querySelectorAll('.marked');
+    markedCells.forEach(cell => {
+        cell.classList.remove('marked');
+        if (cell.querySelector('.note-order')) {
+            cell.querySelector('.note-order').remove();
+        }
+    });
+});
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentLine;
+            let noteCount = 0;
+            const maxNotesPerLine = 10;
+
+            document.getElementById('addNote').addEventListener('click', function() {
+                if (!currentLine || noteCount >= maxNotesPerLine) {
+                    currentLine = document.createElement('div');
+                    currentLine.classList.add('music-line');
+                    document.getElementById('sheetMusic').appendChild(currentLine);
+                    noteCount = 0;
+                }
+
+                const noteWaitTimeSelect = document.getElementById('note-wait-time');
+                const durationSelect = document.getElementById('duration');
+                const noteWaitTimeValue = noteWaitTimeSelect.options[noteWaitTimeSelect.selectedIndex].value;
+                const durationValue = durationSelect.options[durationSelect.selectedIndex].value;
+                const noteElement = document.createElement('span');
+                noteElement.classList.add('note');
+
+                // Converte tempo de espera e duração para representação textual se for uma nota
+                if (!isNaN(noteWaitTimeValue)) {
+                    noteElement.textContent = `Espera: ${noteWaitTimeValue}s`;
+                } else {
+                    noteElement.textContent = `${noteWaitTimeValue}, ${durationValue}s`;
+                }
+
+                currentLine.appendChild(noteElement);
+                noteCount++;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Espelho de Violino</title>
+    <style>
+        /* Estilo da tabela e suas células */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+    min-width: 120px; /* Largura mínima aumentada */
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+        
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Cores para os dedos na tabela */
+        .primeiro {
+            background-color: #ADD8E6; /* Azul claro */
+        }
+        .segundo {
+            background-color: #90EE90; /* Verde claro */
+        }
+        .terceiro {
+            background-color: #FFFFE0; /* Amarelo claro */
+        }
+        .quarto {
+            background-color: #FFC0CB; /* Rosa claro */
+        }
+        .selecionado {
+            background-color: #FFD700; /* Dourado para destacar a célula selecionada */
+        }
+
+        /* Legenda */
+        .legenda {
+            margin-bottom: 20px;
+        }
+        .legenda div {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Espelho do violino */
+        .violin-fretboard {
+            width: 300px;
+            height: 100px;
+            background-color: #8B4513; /* Cor de madeira */
+            margin: 20px auto; /* Centraliza */
+            position: relative;
+            border: 2px solid black;
+        }
+
+        /* Cordas do violino */
+        .string {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: silver;
+        }
+
+        .string:nth-child(1) { top: 15px; }
+        .string:nth-child(2) { top: 35px; }
+        .string:nth-child(3) { top: 55px; }
+        .string:nth-child(4) { top: 75px; }
+
+        /* Estilo para as notas musicais */
+        .sheet-music {
+            border-top: 2px solid black;
+            margin-top: 20px;
+            padding-top: 10px;
+        }
+
+        .music-line {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            margin-bottom: 10px;
+        }
+
+        .note {
+            white-space: nowrap;
+            margin-right: 10px;
+        }
+        .note-order {
+            font-weight: bold;
+            color: red;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+  
+    <div class="legenda">
+        <div class="primeiro">1º Dedo</div>
+        <div class="segundo">2º Dedo</div>
+        <div class="terceiro">3º Dedo</div>
+        <div class="quarto">4º Dedo</div>
+    </div>
+
+    <table id="fretboard">
+        <!-- Conteúdo da tabela omitido para brevidade -->
+        
+  <tr>
+    <th>Corda</th>
+    <th>Solta</th>
+    <th class="primeiro">1</th>
+    <th class="segundo">2</th>
+    <th class="terceiro">3</th>
+    <th class="quarto">4</th>
+    <th class="primeiro">5</th>
+    <th class="segundo">6</th>
+    <th class="terceiro">7</th>
+    <th class="quarto">8</th>
+    <th class="primeiro">9</th>
+    <th class="segundo">10</th>
+    <th class="terceiro">11</th>
+    <th class="quarto">12</th>
+  </tr>
+  <tr>
+    <td>Sol (G)</td>
+    <td>Sol</td>
+    <td class="primeiro">Sol#/Láb</td>
+    <td class="segundo">Lá</td>
+    <td class="terceiro">Lá#/Sib</td>
+    <td class="quarto">Si</td>
+    <td class="primeiro">Dó</td>
+    <td class="segundo">Dó#/Réb</td>
+    <td class="terceiro">Ré</td>
+    <td class="quarto">Ré#/Mib</td>
+    <td class="primeiro">Mi</td>
+    <td class="segundo">Fá</td>
+    <td class="terceiro">Fá#/Solb</td>
+    <td class="quarto">Sol</td>
+  </tr>
+  <tr>
+    <td>Ré (D)</td>
+    <td>Ré</td>
+    <td class="primeiro">Ré#/Mib</td>
+    <td class="segundo">Mi</td>
+    <td class="terceiro">Fá</td>
+    <td class="quarto">Fá#/Solb</td>
+    <td class="primeiro">Sol</td>
+    <td class="segundo">Sol#/Láb</td>
+    <td class="terceiro">Lá</td>
+    <td class="quarto">Lá#/Sib</td>
+    <td class="primeiro">Si</td>
+    <td class="segundo">Dó</td>
+    <td class="terceiro">Dó#/Réb</td>
+    <td class="quarto">Ré</td>
+  </tr>
+  <tr>
+    <td>Lá (A)</td>
+    <td>Lá</td>
+    <td class="primeiro">Lá#/Sib</td>
+    <td class="segundo">Si</td>
+    <td class="terceiro">Dó</td>
+    <td class="quarto">Dó#/Réb</td>
+    <td class="primeiro">Ré</td>
+    <td class="segundo">Ré#/Mib</td>
+    <td class="terceiro">Mi</td>
+    <td class="quarto">Fá</td>
+    <td class="primeiro">Fá#/Solb</td>
+    <td class="segundo">Sol</td>
+    <td class="terceiro">Sol#/Láb</td>
+    <td class="quarto">Lá</td>
+  </tr>
+  <tr>
+    <td>Mi (E)</td>
+    <td>Mi</td>
+    <td class="primeiro">Fá</td>
+    <td class="segundo">Fá#/Solb</td>
+    <td class="terceiro">Sol</td>
+    <td class="quarto">Sol#/Láb</td>
+    <td class="primeiro">Lá</td>
+    <td class="segundo">Lá#/Sib</td>
+    <td class="terceiro">Si</td>
+    <td class="quarto">Dó</td>
+    <td class="primeiro">Dó#/Réb</td>
+    <td class="segundo">Ré</td>
+    <td class="terceiro">Ré#/Mib</td>
+    <td class="quarto">Mi</td>
+  </tr>
+  
+<tr>
+    <td>Mi (E)</td>
+    <td>Mi</td>
+    <td class="primeiro">Fá</td>
+    <td class="segundo">Fá#/Solb</td>
+    <td class="terceiro">Sol</td>
+    <td class="quarto">Sol#/Láb</td>
+    <td class="primeiro">Lá</td>
+    <td class="segundo">Lá#/Sib</td>
+    <td class="terceiro">Si</td>
+    <td class="quarto">Dó</td>
+    <td class="primeiro">Dó#/Réb</td>
+    <td class="segundo">Ré</td>
+    <td class="terceiro">Ré#/Mib</td>
+    <td class="quarto">Mi</td>
+</tr>
+<!-- Linha de Tempo de Espera -->
+<tr>
+    <td>Tempo de Espera</td>
+    <td>1 tempo</td>
+    <td>1/2 tempo</td>
+    <td>1/4 tempo</td>
+    <td>1/8 tempo</td>
+    <td>1/16 tempo</td>
+    <td>1/32 tempo</td>
+    <td>1/64 tempo</td>
+    <td>...</td>
+    <td colspan="5"></td> <!-- Colunas extras, se necessário -->
+</tr>
+
+  
+    </table>
+
+    <button id="limpar">Limpar</button>
+
+    <div id="sheetMusic" class="sheet-music">
+        <!-- Linhas de música adicionadas aqui -->
+    </div>
+
+<script>
+    let order = 0; // Variável para manter o controle da ordem de seleção
+
+    window.onload = function() {
+        document.querySelectorAll('#fretboard td').forEach(function(cell) {
+            if (cell.cellIndex > 0) { // Ignora células do cabeçalho
+                cell.dataset.initial = cell.textContent.trim();
+            }
+        });
+    };
+
+    document.getElementById('fretboard').addEventListener('click', function(event) {
+        const target = event.target;
+        if (target.tagName === 'TD' && target.cellIndex > 0) {
+            order++; // Incrementa a contagem
+            if (target.classList.contains('selecionado')) {
+                target.textContent += `, ${order}`;
+            } else {
+                target.classList.add('selecionado');
+                target.textContent = `${target.dataset.initial} ${order}`;
+            }
+        }
+    });
+
+    document.getElementById('limpar').addEventListener('click', function() {
+        document.querySelectorAll('#fretboard td').forEach(function(cell) {
+            if (cell.cellIndex > 0) {
+                cell.textContent = cell.dataset.initial;
+                cell.classList.remove('selecionado');
+            }
+        });
+        order = 0;
+    });
+</script>
+</body>
+</html>
