@@ -1,0 +1,20 @@
+Explicação dos Elementos
+<!DOCTYPE html>: Declara que este documento é um documento HTML5.
+
+<html lang="pt-br">: O elemento raiz do documento HTML, com um atributo lang indicando que o idioma do documento é português do Brasil.
+
+<head>: Contém metadados sobre o documento, como o conjunto de caracteres, o título da página e links para folhas de estilo.
+
+<meta charset="UTF-8">: Especifica o conjunto de caracteres usado no documento (UTF-8, que inclui a maioria dos caracteres usados em idiomas humanos).
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">: Garante uma boa visualização e zoom adequado em dispositivos móveis.
+
+<title>: O título do documento, que aparece na aba do navegador.
+
+<link rel="stylesheet" href="css/style.css">: Link para a folha de estilo CSS externa que controla a aparência da página.
+
+<body>: Contém o conteúdo da página, como textos, imagens, links, etc.
+
+<h1>, <p>: Elementos HTML para cabeçalhos e parágrafos, respectivamente.
+
+<script src="js/script.js">: Referência ao arquivo JavaScript externo, que é carregado e executado pelo navegador.

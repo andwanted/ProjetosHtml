@@ -1,0 +1,73 @@
+/* Reset básico para remover margens e paddings padrões */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Define a fonte padrão */
+    line-height: 1.6; /* Espaçamento entre linhas */
+    color: #333; /* Cor do texto */
+    background-color: #f4f4f4; /* Cor de fundo da página */
+    padding: 20px; /* Espaçamento interno no body */
+}
+
+/* Estilização do cabeçalho */
+h1 {
+    color: #444; /* Cor do texto do cabeçalho */
+    margin-bottom: 20px; /* Margem abaixo do cabeçalho */
+}
+
+/* Estilização de parágrafos */
+p {
+    margin-bottom: 10px; /* Margem abaixo dos parágrafos */
+}
+
+/* Estilização de links */
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color: #64485C;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+h1, h2 {
+    color: #333;
+}
+
+
+/* Estilização da lista externa */
+.lista-externa {
+    list-style-type: disc; /* Marcadores de disco para a lista externa */
+    padding-left: 20px; /* Recuo para diferenciar do conteúdo da página */
+}
+
+.lista-externa li {
+    padding: 5px 0; /* Espaçamento vertical entre os itens da lista externa */
+    list-style-type: none;
+    background-color: #eee;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-left: 4px solid #5D3FD3;
+}
+
+/* Estilização da lista interna */
+.lista-interna {
+    list-style-type: circle; /* Marcadores de círculo para a lista interna */
+    padding-left: 20px; /* Recuo adicional para a lista interna */
+    background-color: #f0f0f0; /* Cor de fundo leve para diferenciar da lista externa */
+    margin-top: 5px; /* Um pequeno espaço acima da lista interna */
+    border-left: 2px solid #ddd; /* Uma borda à esquerda para destacar a lista interna */
+}
+
+.lista-interna li {
+    padding: 2px 0; /* Espaçamento vertical entre os itens da lista interna */
+}
