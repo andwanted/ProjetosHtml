@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            margin: 20px 0;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Postagens para Blog</h1>
+    <form id="postGenerator">
+        <!-- Título -->
+        <div class="container">
+            <h2>1. História ou Narrativa</h2>
+            <label for="historia">Introduza a história ou narrativa:</label>
+            <textarea id="historia"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>2. Explicação Técnica</h2>
+            <label for="explicacaoTecnica">Detalhe a explicação técnica:</label>
+            <textarea id="explicacaoTecnica"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>3. Exemplos Práticos</h2>
+            <label for="exemplos">Forneça exemplos práticos:</label>
+            <textarea id="exemplos"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>4. Dicas e Truques</h2>
+            <label for="dicas">Compartilhe dicas e truques:</label>
+            <textarea id="dicas"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>5. Códigos e Soluções Comuns</h2>
+            <label for="codigos">Descreva códigos e soluções comuns:</label>
+            <textarea id="codigos"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>6. Erros Comuns e Soluções</h2>
+            <label for="erros">Explique erros comuns e suas soluções:</label>
+            <textarea id="erros"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>7. Comparação de Tecnologias</h2>
+            <label for="comparacao">Faça uma comparação entre tecnologias:</label>
+            <textarea id="comparacao"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>8. Futuro da Tecnologia</h2>
+            <label for="futuro">Discuta o futuro da tecnologia em questão:</label>
+            <textarea id="futuro"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>9. Casos de Uso Reais</h2>
+            <label for="casosDeUso">Descreva casos de uso reais:</label>
+            <textarea id="casosDeUso"></textarea>
+        </div>
+
+        <div class="container">
+            <h2>10. Recursos e Referências</h2>
+            <label for="recursos">Liste recursos e referências úteis:</label>
+            <textarea id="recursos"></textarea>
+        </div>
+
+        <button type="button" onclick="gerarResumo()">Gerar</button>
+    </form>
+
+    <div class="container">
+        <h2>Resumo</h2>
+        <textarea id="resumo" readonly></textarea>
+    </div>
+    <script>
+        function gerarResumo() {
+            // Coleta as informações dos campos
+            const historia = document.getElementById('historia').value;
+            const explicacaoTecnica = document.getElementById('explicacaoTecnica').value;
+            const exemplos = document.getElementById('exemplos').value;
+            const dicas = document.getElementById('dicas').value;
+            const codigos = document.getElementById('codigos').value;
+            const erros = document.getElementById('erros').value;
+            const comparacao = document.getElementById('comparacao').value;
+            const futuro = document.getElementById('futuro').value;
+            const casosDeUso = document.getElementById('casosDeUso').value;
+            const recursos = document.getElementById('recursos').value;
+    
+            // Cria o resumo concatenando as informações
+            const resumo = `História ou Narrativa: ${historia}\n` +
+                `Explicação Técnica: ${explicacaoTecnica}\n` +
+                `Exemplos Práticos: ${exemplos}\n` +
+                `Dicas e Truques: ${dicas}\n` +
+                `Códigos e Soluções Comuns: ${codigos}\n` +
+                `Erros Comuns e Soluções: ${erros}\n` +
+                `Comparação de Tecnologias: ${comparacao}\n` +
+                `Futuro da Tecnologia: ${futuro}\n` +
+                `Casos de Uso Reais: ${casosDeUso}\n` +
+                `Recursos e Referências: ${recursos}`;
+    
+            // Atribui o resumo ao textarea de resumo
+            document.getElementById('resumo').value = resumo;
+        }
+    </script>
+    
+</body>
+</html>
