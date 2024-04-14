@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradutor de Certidões</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        .division {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .field {
+            margin-bottom: 15px;
+        }
+        label {
+            width: 100%;
+            padding: 5px;
+            display: block; /* Assegura que cada rótulo esteja em sua própria linha */
+            font-weight: bold; /* Estilo para destacar os rótulos */
+        }
+    </style>
+
+<script>
+    const fieldsBrazilian = [
+        "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
+        "Hora de Nascimento", "Local de Nascimento", "Nome do Pai", "Nacionalidade do Pai",
+        "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
+        "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
+        "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", "Matrícula"
+    ];
+
+    function addField(divId, fieldName) {
+        const div = document.getElementById(divId);
+        const fieldDiv = document.createElement('div');
+        fieldDiv.className = 'field';
+        fieldDiv.innerHTML = `
+            <label for="${fieldName.replace(/ /g, '')}">${fieldName}</label>
+            <input type="text" id="${fieldName.replace(/ /g, '')}" name="${fieldName.replace(/ /g, '')}">
+        `;
+        div.appendChild(fieldDiv);
+    }
+
+    // Adicionando campos à certidão brasileira
+    fieldsBrazilian.forEach(field => {
+        addField('brazilianFields', field);
+    });
+
+    const fieldsAmerican = [
+        "FEDERATIVE REPUBLIC OF BRAZIL", "CIVIL REGISTRY OF NATURAL PEOPLE",
+        "BIRTH CERTIFICATE", "NAME", "SOCIAL SECURITY CARD", "REGISTRATION", "Date and Time of Birth",
+        "City and State of Birth", "City and State of Registration", "Place of Birth, City and State",
+        "Gender", "Father", "Mother", "Paternal Grandparents", "Maternal Grandparents", "Twins",
+        "Name and Registration of Twins", "Date of Registration", "Registration Number of Alive Birth",
+        "Notes Amendments to Add", "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "ISSUANCE DATE",
+        "ISSUANCE AGENCY", "VALIDITY DATE", "Contribution to the Federal Social Interaction Program",
+        "Passport", "National Health Card", "DOCUMENT TYPE", "NUMBER", "ZONE/SECTION", "CITY", "STATE",
+        "Voter Card", "Residential Zip Code", "Blood Type"
+    ];
+
+    function addLabelField(divId, label) {
+        const div = document.getElementById(divId);
+        const labelDiv = document.createElement('div');
+        labelDiv.className = 'field';
+        labelDiv.innerHTML = <label>${label}</label>; // Corrigido para usar template strings corretamente
+        div.appendChild(labelDiv);
+    }
+
+    // Reutilizando a função addField para adicionar campos com inputs para a certidão americana
+    fieldsAmerican.forEach(field => addField('americanFields', field));
+</script>
+</head>
+<body>
+    
+
+
+<div class="container" id="brazilianFields">
+    <h2>Certidão Brasileira</h2>
+    <!-- Campos para a certidão brasileira serão adicionados pelo JavaScript -->
+</div>
+
+<div class="container" id="americanFields">
+    <h2>Certidão Americana</h2>
+    <!-- Campos para a certidão americana serão adicionados aqui -->
+</div>
+
+<div id="translation-table">
+    <table border="1" style="border-collapse: collapse; width: 100%;">
+        <caption style="font-weight: bold; margin: 20px 0;">Official Translations</caption>
+        <thead>
+            <tr>
+                <th style="padding: 10px;">Portuguese Term/Stamp</th>
+                <th style="padding: 10px;">Official English Translation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 8px;">Assinatura do Oficial/Substituto</td>
+                <td style="padding: 8px;">Officer/Substitute's Signature</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Assinatura ilegível</td>
+                <td style="padding: 8px;">Illegible Signature</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Assinatura Digital</td>
+                <td style="padding: 8px;">Digital Signature</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Selo de Autenticação – Poder Judiciário</td>
+                <td style="padding: 8px;">Authentication Seal – Judiciary</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Carimbo do Cartório</td>
+                <td style="padding: 8px;">Notary's Stamp</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Selo de Fiscalização</td>
+                <td style="padding: 8px;">Inspection Seal</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Código de Segurança</td>
+                <td style="padding: 8px;">Security Code</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Verificado por</td>
+                <td style="padding: 8px;">Verified by</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Assinado à mão</td>
+                <td style="padding: 8px;">Hand Signed</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Assinatura Eletrônica Verificada</td>
+                <td style="padding: 8px;">Verified Electronic Signature</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Autenticado por</td>
+                <td style="padding: 8px;">Authenticated by</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Emitido por</td>
+                <td style="padding: 8px;">Issued by</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Registrado sob</td>
+                <td style="padding: 8px;">Registered under</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Número de Registro</td>
+                <td style="padding: 8px;">Registration Number</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Data de Emissão</td>
+                <td style="padding: 8px;">Issue Date</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Data de Registro</td>
+                <td style="padding: 8px;">Registration Date</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Selo do Notário</td>
+                <td style="padding: 8px;">Notary Seal</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Selo Digital de Segurança</td>
+                <td style="padding: 8px;">Digital Security Seal</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Autorizado por</td>
+                <td style="padding: 8px;">Authorized by</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Validade do Documento</td>
+                <td style="padding: 8px;">Document Validity</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Carimbo da Data</td>
+                <td style="padding: 8px;">Date Stamp</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Documento sem Alterações</td>
+                <td style="padding: 8px;">Document Unaltered</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Verificação de Autenticidade</td>
+                <td style="padding: 8px;">Authenticity Verification</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Certificado por</td>
+                <td style="padding: 8px;">Certified by</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Legalizado perante</td>
+                <td style="padding: 8px;">Legalized before</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Apostilado conforme</td>
+                <td style="padding: 8px;">Apostilled in accordance with</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Tradução Juramentada</td>
+                <td style="padding: 8px;">Sworn Translation</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Reconhecido em Cartório</td>
+                <td style="padding: 8px;">Notarized</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Selo do Conselho Nacional de Justiça</td>
+                <td style="padding: 8px;">National Council of Justice Seal</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;">Selo de Conformidade</td>
+                <td style="padding: 8px;">Compliance Seal</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+
+
+    
+    <table style="margin-top:20px; width: 100%;">
+        <!-- Coat of Arms -->
+        <tr>
+          <td style="text-align:center;" colspan="2">Coat of Arms: [Coat of Arms Placeholder]</td>
+        </tr>
+        <!-- Registry Details -->
+        <tr>
+          <td style="text-align:center;" colspan="2">Registry Details: [Registry Office, Officer, Address]</td>
+        </tr>
+        <!-- Country & Registry Type -->
+        <tr>
+          <td style="text-align:center;" colspan="2">FEDERATIVE REPUBLIC OF BRAZIL, CIVIL REGISTRY OF NATURAL PEOPLE</td>
+        </tr>
+        <!-- Document Type & Issuance -->
+        <tr>
+          <td style="text-align:center;" colspan="2">BIRTH CERTIFICATE, Second Issuance</td>
+        </tr>
+        <!-- Name -->
+        <tr>
+          <td style="text-align:center;" colspan="2">NAME: IRMA FRITSCHE</td>
+        </tr>
+        <!-- Social Security Card (Start of Highlighted Section) -->
+        <tr style="border-top: 2px solid black;">
+          <td>Social Security Card:</td>
+          <td>073.556.659-36</td>
+        </tr>
+        <!-- Registration (End of Highlighted Section) -->
+        <tr style="border-bottom: 2px solid black;">
+          <td>Registration:</td>
+          <td>104257 01 55 1990 1 00061 219 0053539 12</td>
+        </tr>
+        <tr>
+          <td>Date and Time of Birth:</td>
+          <td>SEPTEMBER 18, 1990 – (09/18/1990) – 05:00 AM</td>
+        </tr>
+        <tr>
+          <td>City and State of Birth:</td>
+          <td>CHAPECO-SC</td>
+        </tr>
+        <tr>
+          <td>City and State of Registration:</td>
+          <td>CHAPECO-SC</td>
+        </tr>
+        <tr>
+          <td>Place of Birth:</td>
+          <td>SANTO ANTONIO HOSPITAL, CHAPECO-SC</td>
+        </tr>
+        <tr>
+          <td>Gender:</td>
+          <td>FEMALE</td>
+        </tr>
+        <tr>
+          <td>Father’s Name:</td>
+          <td>NELSINHO FRITSCHE</td>
+        </tr>
+        <tr>
+          <td>Mother’s Name:</td>
+          <td>IRACEMA FRISCHE</td>
+        </tr>
+        <tr>
+          <td>Paternal Grandparents:</td>
+          <td>EDVINO FRITSCHE, TEREZA FRITSCHE</td>
+        </tr>
+        <tr>
+          <td>Maternal Grandparents:</td>
+          <td>FLORENCIO TELES DOS SANTOS, JEZUINA SEVERO</td>
+        </tr>
+        <tr>
+          <td>Date of Registration:</td>
+          <td>SEPTEMBER 19, 1990</td>
+        </tr>
+        <tr style="border-bottom: 2px solid black;">
+          <td>Registration Number of Alive Birth:</td>
+          <td>THERE’S NO INFORMATION AT THE REGISTRATION</td>
+        </tr>
+        <tr style="border-bottom: 2px solid black;">
+          <td>Amendments/Notes to add:</td>
+          <td>Amendment: Irma Fritsche is registered with the Social Security Card under #073.556.659-36. Annotation carried out in this Registry in book A-61, page 219, record number 53539, pursuant to Provision # 63/2017 of the National Council of Justice. Chapeco - SC, 06/14/2023.</td>
+        </tr>
+        <!-- Seal Line Split -->
+        <tr>
+          <td colspan="2" style="text-align:center; border-top: 2px solid black; margin-top: 10px; padding-top: 10px;">
+            <div>Seal Placeholder Left | Seal Placeholder Right</div>
+          </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+</body>
+</html>
