@@ -40,54 +40,7 @@
         }
     </style>
 
-<script>
-    const fieldsBrazilian = [
-        "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
-        "Hora de Nascimento", "Local de Nascimento", "Nome do Pai", "Nacionalidade do Pai",
-        "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
-        "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
-        "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", "Matrícula"
-    ];
 
-    function addField(divId, fieldName) {
-        const div = document.getElementById(divId);
-        const fieldDiv = document.createElement('div');
-        fieldDiv.className = 'field';
-        fieldDiv.innerHTML = `
-            <label for="${fieldName.replace(/ /g, '')}">${fieldName}</label>
-            <input type="text" id="${fieldName.replace(/ /g, '')}" name="${fieldName.replace(/ /g, '')}">
-        `;
-        div.appendChild(fieldDiv);
-    }
-
-    // Adicionando campos à certidão brasileira
-    fieldsBrazilian.forEach(field => {
-        addField('brazilianFields', field);
-    });
-
-    const fieldsAmerican = [
-        "FEDERATIVE REPUBLIC OF BRAZIL", "CIVIL REGISTRY OF NATURAL PEOPLE",
-        "BIRTH CERTIFICATE", "NAME", "SOCIAL SECURITY CARD", "REGISTRATION", "Date and Time of Birth",
-        "City and State of Birth", "City and State of Registration", "Place of Birth, City and State",
-        "Gender", "Father", "Mother", "Paternal Grandparents", "Maternal Grandparents", "Twins",
-        "Name and Registration of Twins", "Date of Registration", "Registration Number of Alive Birth",
-        "Notes Amendments to Add", "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "ISSUANCE DATE",
-        "ISSUANCE AGENCY", "VALIDITY DATE", "Contribution to the Federal Social Interaction Program",
-        "Passport", "National Health Card", "DOCUMENT TYPE", "NUMBER", "ZONE/SECTION", "CITY", "STATE",
-        "Voter Card", "Residential Zip Code", "Blood Type"
-    ];
-
-    function addLabelField(divId, label) {
-        const div = document.getElementById(divId);
-        const labelDiv = document.createElement('div');
-        labelDiv.className = 'field';
-        labelDiv.innerHTML = <label>${label}</label>; // Corrigido para usar template strings corretamente
-        div.appendChild(labelDiv);
-    }
-
-    // Reutilizando a função addField para adicionar campos com inputs para a certidão americana
-    fieldsAmerican.forEach(field => addField('americanFields', field));
-</script>
 </head>
 <body>
     
@@ -329,8 +282,48 @@
 </div>
 
 
+<script>
+    const fieldsBrazilian = [
+        "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
+        "Hora de Nascimento", "Local de Nascimento", "Nome do Pai", "Nacionalidade do Pai",
+        "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
+        "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
+        "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", "Matrícula"
+    ];
 
+    const fieldsAmerican = [
+        "FEDERATIVE REPUBLIC OF BRAZIL", "CIVIL REGISTRY OF NATURAL PEOPLE",
+        "BIRTH CERTIFICATE", "NAME", "SOCIAL SECURITY CARD", "REGISTRATION", "Date and Time of Birth",
+        "City and State of Birth", "City and State of Registration", "Place of Birth, City and State",
+        "Gender", "Father", "Mother", "Paternal Grandparents", "Maternal Grandparents", "Twins",
+        "Name and Registration of Twins", "Date of Registration", "Registration Number of Alive Birth",
+        "Notes Amendments to Add", "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "ISSUANCE DATE",
+        "ISSUANCE AGENCY", "VALIDITY DATE", "Contribution to the Federal Social Interaction Program",
+        "Passport", "National Health Card", "DOCUMENT TYPE", "NUMBER", "ZONE/SECTION", "CITY", "STATE",
+        "Voter Card", "Residential Zip Code", "Blood Type"
+    ];
 
+    function addField(divId, fieldName) {
+        const div = document.getElementById(divId);
+        const fieldDiv = document.createElement('div');
+        fieldDiv.className = 'field';
+        fieldDiv.innerHTML = `
+            <label for="${fieldName.replace(/ /g, '')}">${fieldName}</label>
+            <input type="text" id="${fieldName.replace(/ /g, '')}" name="${fieldName.replace(/ /g, '')}">
+        `;
+        div.appendChild(fieldDiv);
+    }
+
+    // Adicionando campos à certidão brasileira
+    fieldsBrazilian.forEach(field => {
+        addField('brazilianFields', field);
+    });
+
+    // Adicionando campos à certidão americana
+    fieldsAmerican.forEach(field => {
+        addField('americanFields', field);
+    });
+</script>
 
 
 </body>
