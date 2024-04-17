@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário Dinâmico</title>
+    <style>
+         .certificate-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .certificate-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .certificate-table th, .certificate-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .certificate-table th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <table class="certificate-table">
+            <tr><th id="title" colspan="2">BIRTH CERTIFICATE</th></tr>
+            <tr><td id="name" colspan="2"></td></tr>
+            <tr><td id="ssn" colspan="2"></td></tr>
+            <tr><td id="registration" colspan="2"></td></tr>
+            <tr>
+                <td id="dob"></td>
+                <td id="birth_city_state"></td>
+            </tr>
+            <tr>
+                <td id="registration_city_state"></td>
+                <td id="hospital"></td>
+            </tr>
+            <tr>
+                <td id="gender"></td>
+                <td id="mother"></td>
+            </tr>
+            <tr>
+                <td id="maternal_grandparents"></td>
+                <td id="twins"></td>
+            </tr>
+            <tr>
+                <td id="registration_date"></td>
+                <td id="birth_registration_number"></td>
+            </tr>
+            <tr><td id="amendment" colspan="2"></td></tr>
+            <tr><td id="registration_notes" colspan="2"></td></tr>
+        </table>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('name').textContent = 'NAME: WESLEY RODRIGUES DA SILVA';
+    document.getElementById('ssn').textContent = 'SOCIAL SECURITY CARD: 075.894.956-11';
+    document.getElementById('registration').textContent = 'REGISTRATION: 0381900155 1984 1 00019 075 0004147 33';
+    document.getElementById('dob').textContent = 'Date and Time of Birth: JULY 25, 1983 – 5:30 AM';
+    document.getElementById('birth_city_state').textContent = 'City and State of Birth: RAUL SOARES – MG';
+    document.getElementById('registration_city_state').textContent = 'City and State of Registration: RAUL SOARES – MG';
+    document.getElementById('hospital').textContent = 'Place of Birth, City and State: SAO SEBASTIAO HOSPITAL RAUL SOARES – MG';
+    document.getElementById('gender').textContent = 'Gender: MALE';
+    document.getElementById('mother').textContent = 'Mother: TEREZINHA DA SILVA';
+    document.getElementById('maternal_grandparents').textContent = 'Maternal Grandparents: MARIA RAIMUNDA DA SILVA';
+    document.getElementById('twins').textContent = 'Twins: NO';
+    document.getElementById('registration_date').textContent = 'Date of Registration: APRIL 23, 1985';
+    document.getElementById('birth_registration_number').textContent = 'Registration Number of Alive Birth: NONE';
+    document.getElementById('amendment').textContent = 'Amendment – On 02/09/2019, ... Social Security Card of the registered person. Registration # 075.894.956-11. Sao Vicente da Estrela, 09/02/2019.';
+    document.getElementById('registration_notes').textContent = 'REGISTRATION NOTES:';
+});
+
+</script>
+</body>
+</html>

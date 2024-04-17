@@ -1,330 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tradutor de Certidões</title>
-    
     <style>
+     
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            background-color: #f4f4f4; /* Cor de fundo suave */
         }
-        .container {
-            display: flex;
-            flex-direction: column;
+    
+        .fields-container {
+            display: flex; /* Restaurando flex para layout lado a lado */
+            justify-content: space-between; /* Espaço entre as divisões */
             width: 100%;
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
-        .division {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            max-width: 960px; /* Controla a largura máxima */
             margin-top: 20px;
         }
-        h2 {
-            text-align: center;
+    
+        #brazilFields, #americanFields {
+            padding: 20px;
+            flex: 1; /* Faz cada <div> ocupar espaços iguais */
+            margin: 0 10px; /* Espaço lateral entre os campos */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: box-shadow 0.3s;
         }
+    
+        #brazilFields:hover, #americanFields:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+    
         .field {
-            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
         }
-        label {
+    
+        .field label {
+            flex-basis: 30%; /* Ajustado para um melhor controle do layout */
+            margin-right: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+    
+        .field input {
+            flex-grow: 1; /* Permite que o input cresça para preencher o espaço disponível */
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    
+        .certificate-container table {
+            width: 100%; /* Ocupa a largura total do container */
+            border-collapse: collapse; /* Evita espaços duplos entre as bordas das células */
+            margin-top: 20px;
+        }
+    
+        .certificate-container th, .certificate-container td {
+            padding: 10px;
+            border: 1px solid #ddd; /* Linhas leves para definição */
+            text-align: left;
+        }
+    
+        .certificate-container th {
+            background-color: #f8f8f8; /* Fundo claro para cabeçalhos */
+            font-weight: bold;
+        }
+
+        .certificate-table {
             width: 100%;
-            padding: 5px;
-            display: block; /* Assegura que cada rótulo esteja em sua própria linha */
-            font-weight: bold; /* Estilo para destacar os rótulos */
+            border-collapse: collapse;
         }
+        .certificate-table, .certificate-table th, .certificate-table td {
+            border: 1px solid black;
+        }
+        .certificate-table th, .certificate-table td {
+            padding: 10px;
+            text-align: left;
+        }
+    
+        @media (max-width: 768px) {
+            .fields-container {
+                flex-direction: column; /* Empilha as divisões verticalmente em telas menores */
+            }
+            #brazilFields, #americanFields {
+                margin: 10px 0; /* Ajusta as margens para verticalmente empilhado */
+            }
+        }
+
+        
     </style>
-
-
 </head>
 <body>
-    
+    <div class="fields-container">
+        <div id="brazilFields">
+            <h2>Campos Brasileiros</h2>
+        </div>
+        <div id="americanFields">
+            <h2>Campos Americanos</h2>
+        </div>
+    </div>
 
-
-<div class="container" id="brazilianFields">
-    <h2>Certidão Brasileira</h2>
-    <!-- Campos para a certidão brasileira serão adicionados pelo JavaScript -->
-</div>
-
-<div class="container" id="americanFields">
-    <h2>Certidão Americana</h2>
-    <!-- Campos para a certidão americana serão adicionados aqui -->
-</div>
-
-<div id="translation-table">
-    <table border="1" style="border-collapse: collapse; width: 100%;">
-        <caption style="font-weight: bold; margin: 20px 0;">Official Translations</caption>
+    <table id="minhaTabela">
         <thead>
             <tr>
-                <th style="padding: 10px;">Portuguese Term/Stamp</th>
-                <th style="padding: 10px;">Official English Translation</th>
+                <th>Termo</th>
+                <th>Tradução</th>
+                <th>Termo</th>
+                <th>Tradução</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td style="padding: 8px;">Assinatura do Oficial/Substituto</td>
-                <td style="padding: 8px;">Officer/Substitute's Signature</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Assinatura ilegível</td>
-                <td style="padding: 8px;">Illegible Signature</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Assinatura Digital</td>
-                <td style="padding: 8px;">Digital Signature</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Selo de Autenticação – Poder Judiciário</td>
-                <td style="padding: 8px;">Authentication Seal – Judiciary</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Carimbo do Cartório</td>
-                <td style="padding: 8px;">Notary's Stamp</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Selo de Fiscalização</td>
-                <td style="padding: 8px;">Inspection Seal</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Código de Segurança</td>
-                <td style="padding: 8px;">Security Code</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Verificado por</td>
-                <td style="padding: 8px;">Verified by</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Assinado à mão</td>
-                <td style="padding: 8px;">Hand Signed</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Assinatura Eletrônica Verificada</td>
-                <td style="padding: 8px;">Verified Electronic Signature</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Autenticado por</td>
-                <td style="padding: 8px;">Authenticated by</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Emitido por</td>
-                <td style="padding: 8px;">Issued by</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Registrado sob</td>
-                <td style="padding: 8px;">Registered under</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Número de Registro</td>
-                <td style="padding: 8px;">Registration Number</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Data de Emissão</td>
-                <td style="padding: 8px;">Issue Date</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Data de Registro</td>
-                <td style="padding: 8px;">Registration Date</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Selo do Notário</td>
-                <td style="padding: 8px;">Notary Seal</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Selo Digital de Segurança</td>
-                <td style="padding: 8px;">Digital Security Seal</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Autorizado por</td>
-                <td style="padding: 8px;">Authorized by</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Validade do Documento</td>
-                <td style="padding: 8px;">Document Validity</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Carimbo da Data</td>
-                <td style="padding: 8px;">Date Stamp</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Documento sem Alterações</td>
-                <td style="padding: 8px;">Document Unaltered</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Verificação de Autenticidade</td>
-                <td style="padding: 8px;">Authenticity Verification</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Certificado por</td>
-                <td style="padding: 8px;">Certified by</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Legalizado perante</td>
-                <td style="padding: 8px;">Legalized before</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Apostilado conforme</td>
-                <td style="padding: 8px;">Apostilled in accordance with</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Tradução Juramentada</td>
-                <td style="padding: 8px;">Sworn Translation</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Reconhecido em Cartório</td>
-                <td style="padding: 8px;">Notarized</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Selo do Conselho Nacional de Justiça</td>
-                <td style="padding: 8px;">National Council of Justice Seal</td>
-            </tr>
-            <tr>
-                <td style="padding: 8px;">Selo de Conformidade</td>
-                <td style="padding: 8px;">Compliance Seal</td>
-            </tr>
+            <!-- As linhas da tabela serão adicionadas pelo JavaScript -->
         </tbody>
     </table>
-</div>
-<div>
 
+    <div class="certificate-container">
+        <!-- Seu conteúdo de certificado permanece aqui -->
+        <table class="certificate-table">
+            <tr><th id="title" colspan="2">BIRTH CERTIFICATE</th></tr>
+            <tr><td id="name" colspan="2"></td></tr>
+            <tr><td id="ssn" colspan="2"></td></tr>
+            <tr><td id="registration" colspan="2"></td></tr>
+            <tr>
+                <td id="dob"></td>
+                <td id="birth_city_state"></td>
+            </tr>
+            <tr>
+                <td id="registration_city_state"></td>
+                <td id="hospital"></td>
+            </tr>
+            <tr>
+                <td id="gender"></td>
+                <td id="mother"></td>
+            </tr>
+            <tr>
+                <td id="maternal_grandparents"></td>
+                <td id="twins"></td>
+            </tr>
+            <tr>
+                <td id="registration_date"></td>
+                <td id="birth_registration_number"></td>
+            </tr>
+            <tr><td id="amendment" colspan="2"></td></tr>
+            <tr><td id="registration_notes" colspan="2"></td></tr>
+        </table>
+    </div>
 
+    <script>
+                document.addEventListener('DOMContentLoaded', function() {
+            // Preencher os dados no certificado
+            document.getElementById('name').textContent = 'NAME: WESLEY RODRIGUES DA SILVA';
+            document.getElementById('ssn').textContent = 'SOCIAL SECURITY CARD: 075.894.956-11';
+            document.getElementById('registration').textContent = 'REGISTRATION: 0381900155 1984 1 00019 075 0004147 33';
+            document.getElementById('dob').textContent = 'Date and Time of Birth: JULY 25, 1983 – 5:30 AM';
+            document.getElementById('birth_city_state').textContent = 'City and State of Birth: RAUL SOARES – MG';
+            document.getElementById('registration_city_state').textContent = 'City and State of Registration: RAUL SOARES – MG';
+            document.getElementById('hospital').textContent = 'Place of Birth, City and State: SAO SEBASTIAO HOSPITAL RAUL SOARES – MG';
+            document.getElementById('gender').textContent = 'Gender: MALE';
+            document.getElementById('mother').textContent = 'Mother: TEREZINHA DA SILVA';
+            document.getElementById('maternal_grandparents').textContent = 'Maternal Grandparents: MARIA RAIMUNDA DA SILVA';
+            document.getElementById('twins').textContent = 'Twins: NO';
+            document.getElementById('registration_date').textContent = 'Date of Registration: APRIL 23, 1985';
+            document.getElementById('birth_registration_number').textContent = 'Registration Number of Alive Birth: NONE';
+            document.getElementById('amendment').textContent = 'Amendment – On 02/09/2019, ... Social Security Card of the registered person. Registration # 075.894.956-11. Sao Vicente da Estrela, 09/02/2019.';
+            document.getElementById('registration_notes').textContent = 'REGISTRATION NOTES:';
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dadosTabela = [
+                { termo: "Assinatura do Oficial/Substituto", traducao: "Officer/Substitute's Signature" },
+                { termo: "Assinatura ilegível", traducao: "Illegible Signature" },
+                { termo: "Assinatura Digital", traducao: "Digital Signature" },
+                { termo: "Selo de Autenticação – Poder Judiciário", traducao: "Authentication Seal – Judiciary" },
+                { termo: "Carimbo do Cartório", traducao: "Notary's Stamp" },
+                { termo: "Selo de Fiscalização", traducao: "Inspection Seal" },
+                { termo: "Código de Segurança", traducao: "Security Code" },
+                { termo: "Verificado por", traducao: "Verified by" },
+                { termo: "Assinado à mão", traducao: "Hand Signed" },
+                { termo: "Assinatura Eletrônica Verificada", traducao: "Verified Electronic Signature" },
+                { termo: "Autenticado por", traducao: "Authenticated by" },
+                { termo: "Emitido por", traducao: "Issued by" },
+                { termo: "Registrado sob", traducao: "Registered under" },
+                { termo: "Número de Registro", traducao: "Registration Number" },
+                { termo: "Data de Emissão", traducao: "Issue Date" },
+                { termo: "Data de Registro", traducao: "Registration Date" },
+                { termo: "Selo do Notário", traducao: "Notary Seal" },
+                { termo: "Selo Digital de Segurança", traducao: "Digital Security Seal" },
+                { termo: "Autorizado por", traducao: "Authorized by" },
+                { termo: "Validade do Documento", traducao: "Document Validity" },
+                { termo: "Carimbo da Data", traducao: "Date Stamp" },
+                { termo: "Documento sem Alterações", traducao: "Document Unaltered" },
+                { termo: "Verificação de Autenticidade", traducao: "Authenticity Verification" },
+                { termo: "Certificado por", traducao: "Certified by" },
+                { termo: "Legalizado perante", traducao: "Legalized before" },
+                { termo: "Apostilado conforme", traducao: "Apostilled in accordance with" },
+                { termo: "Tradução Juramentada", traducao: "Sworn Translation" },
+                { termo: "Reconhecido em Cartório", traducao: "Notarized" },
+                { termo: "Selo do Conselho Nacional de Justiça", traducao: "National Council of Justice Seal" },
+                { termo: "Selo de Conformidade", traducao: "Compliance Seal" }
+            ];
     
-    <table style="margin-top:20px; width: 100%;">
-        <!-- Coat of Arms -->
-        <tr>
-          <td style="text-align:center;" colspan="2">Coat of Arms: [Coat of Arms Placeholder]</td>
-        </tr>
-        <!-- Registry Details -->
-        <tr>
-          <td style="text-align:center;" colspan="2">Registry Details: [Registry Office, Officer, Address]</td>
-        </tr>
-        <!-- Country & Registry Type -->
-        <tr>
-          <td style="text-align:center;" colspan="2">FEDERATIVE REPUBLIC OF BRAZIL, CIVIL REGISTRY OF NATURAL PEOPLE</td>
-        </tr>
-        <!-- Document Type & Issuance -->
-        <tr>
-          <td style="text-align:center;" colspan="2">BIRTH CERTIFICATE, Second Issuance</td>
-        </tr>
-        <!-- Name -->
-        <tr>
-          <td style="text-align:center;" colspan="2">NAME: IRMA FRITSCHE</td>
-        </tr>
-        <!-- Social Security Card (Start of Highlighted Section) -->
-        <tr style="border-top: 2px solid black;">
-          <td>Social Security Card:</td>
-          <td>073.556.659-36</td>
-        </tr>
-        <!-- Registration (End of Highlighted Section) -->
-        <tr style="border-bottom: 2px solid black;">
-          <td>Registration:</td>
-          <td>104257 01 55 1990 1 00061 219 0053539 12</td>
-        </tr>
-        <tr>
-          <td>Date and Time of Birth:</td>
-          <td>SEPTEMBER 18, 1990 – (09/18/1990) – 05:00 AM</td>
-        </tr>
-        <tr>
-          <td>City and State of Birth:</td>
-          <td>CHAPECO-SC</td>
-        </tr>
-        <tr>
-          <td>City and State of Registration:</td>
-          <td>CHAPECO-SC</td>
-        </tr>
-        <tr>
-          <td>Place of Birth:</td>
-          <td>SANTO ANTONIO HOSPITAL, CHAPECO-SC</td>
-        </tr>
-        <tr>
-          <td>Gender:</td>
-          <td>FEMALE</td>
-        </tr>
-        <tr>
-          <td>Father’s Name:</td>
-          <td>NELSINHO FRITSCHE</td>
-        </tr>
-        <tr>
-          <td>Mother’s Name:</td>
-          <td>IRACEMA FRISCHE</td>
-        </tr>
-        <tr>
-          <td>Paternal Grandparents:</td>
-          <td>EDVINO FRITSCHE, TEREZA FRITSCHE</td>
-        </tr>
-        <tr>
-          <td>Maternal Grandparents:</td>
-          <td>FLORENCIO TELES DOS SANTOS, JEZUINA SEVERO</td>
-        </tr>
-        <tr>
-          <td>Date of Registration:</td>
-          <td>SEPTEMBER 19, 1990</td>
-        </tr>
-        <tr style="border-bottom: 2px solid black;">
-          <td>Registration Number of Alive Birth:</td>
-          <td>THERE’S NO INFORMATION AT THE REGISTRATION</td>
-        </tr>
-        <tr style="border-bottom: 2px solid black;">
-          <td>Amendments/Notes to add:</td>
-          <td>Amendment: Irma Fritsche is registered with the Social Security Card under #073.556.659-36. Annotation carried out in this Registry in book A-61, page 219, record number 53539, pursuant to Provision # 63/2017 of the National Council of Justice. Chapeco - SC, 06/14/2023.</td>
-        </tr>
-        <!-- Seal Line Split -->
-        <tr>
-          <td colspan="2" style="text-align:center; border-top: 2px solid black; margin-top: 10px; padding-top: 10px;">
-            <div>Seal Placeholder Left | Seal Placeholder Right</div>
-          </td>
-        </tr>
-    </table>
-</div>
-
-
-<script>
-    const fieldsBrazilian = [
-        "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
-        "Hora de Nascimento", "Local de Nascimento", "Nome do Pai", "Nacionalidade do Pai",
-        "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
-        "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
-        "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", "Matrícula"
-    ];
-
-    const fieldsAmerican = [
-        "FEDERATIVE REPUBLIC OF BRAZIL", "CIVIL REGISTRY OF NATURAL PEOPLE",
-        "BIRTH CERTIFICATE", "NAME", "SOCIAL SECURITY CARD", "REGISTRATION", "Date and Time of Birth",
-        "City and State of Birth", "City and State of Registration", "Place of Birth, City and State",
-        "Gender", "Father", "Mother", "Paternal Grandparents", "Maternal Grandparents", "Twins",
-        "Name and Registration of Twins", "Date of Registration", "Registration Number of Alive Birth",
-        "Notes Amendments to Add", "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "ISSUANCE DATE",
-        "ISSUANCE AGENCY", "VALIDITY DATE", "Contribution to the Federal Social Interaction Program",
-        "Passport", "National Health Card", "DOCUMENT TYPE", "NUMBER", "ZONE/SECTION", "CITY", "STATE",
-        "Voter Card", "Residential Zip Code", "Blood Type"
-    ];
-
-    function addField(divId, fieldName) {
-        const div = document.getElementById(divId);
-        const fieldDiv = document.createElement('div');
-        fieldDiv.className = 'field';
-        fieldDiv.innerHTML = `
-            <label for="${fieldName.replace(/ /g, '')}">${fieldName}</label>
-            <input type="text" id="${fieldName.replace(/ /g, '')}" name="${fieldName.replace(/ /g, '')}">
-        `;
-        div.appendChild(fieldDiv);
-    }
-
-    // Adicionando campos à certidão brasileira
-    fieldsBrazilian.forEach(field => {
-        addField('brazilianFields', field);
-    });
-
-    // Adicionando campos à certidão americana
-    fieldsAmerican.forEach(field => {
-        addField('americanFields', field);
-    });
-</script>
-
-
+            const corpoTabela = document.querySelector("#minhaTabela tbody");
+            dadosTabela.forEach((item, index) => {
+                var linha = corpoTabela.insertRow();
+                var celulaTermo = linha.insertCell(0);
+                var celulaTraducao = linha.insertCell(1);
+                celulaTermo.textContent = item.termo;
+                celulaTraducao.textContent = item.traducao;
+            });
+    
+            function sanitizeIdName(value) {
+                return value.replace(/[^a-zA-Z0-9]/g, '');
+            }
+    
+            function addField(divId, fieldName) {
+                const div = document.getElementById(divId);
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'field';
+                const safeName = sanitizeIdName(fieldName);
+                fieldDiv.innerHTML = `
+                    <label for="${safeName}">${fieldName}</label>
+                    <input type="text" id="${safeName}" name="${safeName}">
+                `;
+                div.appendChild(fieldDiv);
+            }
+    
+            const fieldsBrazilian = [
+                    "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
+                    "Hora de Nascimento", "Local de Nascimento", "Nome do Pai", "Nacionalidade do Pai",
+                    "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
+                    "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
+                    "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", "Matrícula"
+                ];
+        
+                const fieldsAmerican = [
+                    "FEDERATIVE REPUBLIC OF BRAZIL", "CIVIL REGISTRY OF NATURAL PEOPLE",
+                    "BIRTH CERTIFICATE", "NAME", "SOCIAL SECURITY CARD", "REGISTRATION", "Date and Time of Birth",
+                    "City and State of Birth", "City and State of Registration", "Place of Birth, City and State",
+                    "Gender", "Father", "Mother", "Paternal Grandparents", "Maternal Grandparents", "Twins",
+                    "Name and Registration of Twins", "Date of Registration", "Registration Number of Alive Birth",
+                    "Notes Amendments to Add", "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "ISSUANCE DATE",
+                    "ISSUANCE AGENCY", "VALIDITY DATE", "Contribution to the Federal Social Interaction Program",
+                    "Passport Number", "Driver's License Information", "Voter's Registration"
+                ];
+        
+                fieldsBrazilian.forEach(field => addField('brazilFields', field));
+                fieldsAmerican.forEach(field => addField('americanFields', field));
+            
+                
+        });
+    </script>
+    
 </body>
 </html>
