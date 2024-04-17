@@ -127,54 +127,109 @@
     <div class="certificate-container">
         <!-- Seu conteúdo de certificado permanece aqui -->
         <table class="certificate-table">
-            <tr><th id="title" colspan="2">BIRTH CERTIFICATE</th></tr>
-            <tr><td id="name" colspan="2"></td></tr>
-            <tr><td id="ssn" colspan="2"></td></tr>
-            <tr><td id="registration" colspan="2"></td></tr>
+            <tr><th id="title" colspan="5">BIRTH CERTIFICATE</th></tr>
+            <tr><td id="name" colspan="5"></td></tr>
+            <tr><td id="ssn" colspan="5"></td></tr>
+            <tr><td id="registration" colspan="5"></td></tr>
             <tr>
                 <td id="dob"></td>
                 <td id="birth_city_state"></td>
-            </tr>
-            <tr>
                 <td id="registration_city_state"></td>
                 <td id="hospital"></td>
-            </tr>
-            <tr>
                 <td id="gender"></td>
-                <td id="mother"></td>
             </tr>
             <tr>
+                <td id="mother"></td>
                 <td id="maternal_grandparents"></td>
                 <td id="twins"></td>
-            </tr>
-            <tr>
                 <td id="registration_date"></td>
                 <td id="birth_registration_number"></td>
             </tr>
-            <tr><td id="amendment" colspan="2"></td></tr>
-            <tr><td id="registration_notes" colspan="2"></td></tr>
+            <tr><td id="amendment" colspan="5"></td></tr>
+            <tr><td id="registration_notes" colspan="5"></td></tr>
+            <!-- Linhas com pontos indicativos -->
+            <tr>
+                <td id="document_type">DOCUMENT TYPE</td>
+                <td id="number">NUMBER</td>
+                <td id="issuance_date">ISSUANCE DATE</td>
+                <td id="issuance_agency">ISSUANCE AGENCY</td>
+                <td id="validity_date">VALIDITY DATE</td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                
+            </tr>
+            <tr>
+                <td>Contribution to the Federal Social Interaction Program</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+            <tr>
+                <td>Passport</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+            <tr>
+                <td>National Health Card</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+            <tr>
+                <td id="document_type_2">DOCUMENT TYPE</td>
+                <td id="zone_section">NUMBER ZONE/SECTION</td>
+                <td id="city">CITY</td>
+                <td id="state">STATE</td>
+                <td colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Voter Card</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+            <tr>
+                <td>Residential Zip Code</td>
+                <td>...</td>
+                <td>...</td>
+                <td>Blood Type</td>
+                <td>...</td>
+            </tr>
         </table>
     </div>
+    
+    
 
     <script>
-                document.addEventListener('DOMContentLoaded', function() {
-            // Preencher os dados no certificado
-            document.getElementById('name').textContent = 'NAME: WESLEY RODRIGUES DA SILVA';
-            document.getElementById('ssn').textContent = 'SOCIAL SECURITY CARD: 075.894.956-11';
-            document.getElementById('registration').textContent = 'REGISTRATION: 0381900155 1984 1 00019 075 0004147 33';
-            document.getElementById('dob').textContent = 'Date and Time of Birth: JULY 25, 1983 – 5:30 AM';
-            document.getElementById('birth_city_state').textContent = 'City and State of Birth: RAUL SOARES – MG';
-            document.getElementById('registration_city_state').textContent = 'City and State of Registration: RAUL SOARES – MG';
-            document.getElementById('hospital').textContent = 'Place of Birth, City and State: SAO SEBASTIAO HOSPITAL RAUL SOARES – MG';
-            document.getElementById('gender').textContent = 'Gender: MALE';
-            document.getElementById('mother').textContent = 'Mother: TEREZINHA DA SILVA';
-            document.getElementById('maternal_grandparents').textContent = 'Maternal Grandparents: MARIA RAIMUNDA DA SILVA';
-            document.getElementById('twins').textContent = 'Twins: NO';
-            document.getElementById('registration_date').textContent = 'Date of Registration: APRIL 23, 1985';
-            document.getElementById('birth_registration_number').textContent = 'Registration Number of Alive Birth: NONE';
-            document.getElementById('amendment').textContent = 'Amendment – On 02/09/2019, ... Social Security Card of the registered person. Registration # 075.894.956-11. Sao Vicente da Estrela, 09/02/2019.';
-            document.getElementById('registration_notes').textContent = 'REGISTRATION NOTES:';
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    // Preencher os dados no certificado
+    document.getElementById('name').textContent = 'NAME: WESLEY RODRIGUES DA SILVA';
+    document.getElementById('ssn').textContent = 'SOCIAL SECURITY CARD: 075.894.956-11';
+    document.getElementById('registration').textContent = 'REGISTRATION: 0381900155 1984 1 00019 075 0004147 33';
+    document.getElementById('dob').textContent = 'Date and Time of Birth: JULY 25, 1983 – 5:30 AM';
+    document.getElementById('birth_city_state').textContent = 'City and State of Birth: RAUL SOARES – MG';
+    document.getElementById('registration_city_state').textContent = 'City and State of Registration: RAUL SOARES – MG';
+    document.getElementById('hospital').textContent = 'Place of Birth, City and State: SAO SEBASTIAO HOSPITAL RAUL SOARES – MG';
+    document.getElementById('gender').textContent = 'Gender: MALE';
+    document.getElementById('mother').textContent = 'Mother: TEREZINHA DA SILVA';
+    document.getElementById('maternal_grandparents').textContent = 'Maternal Grandparents: MARIA RAIMUNDA DA SILVA';
+    document.getElementById('twins').textContent = 'Twins: NO';
+    document.getElementById('registration_date').textContent = 'Date of Registration: APRIL 23, 1985';
+    document.getElementById('birth_registration_number').textContent = 'Registration Number of Alive Birth: NONE';
+    document.getElementById('amendment').textContent = 'Amendment – On 02/09/2019, ... Social Security Card of the registered person. Registration # 075.894.956-11. Sao Vicente da Estrela, 09/02/2019.';
+    document.getElementById('registration_notes').textContent = 'REGISTRATION NOTES:';
+    // Adicionar preenchimento para novos campos se necessário
+});
 
         document.addEventListener('DOMContentLoaded', function() {
             const dadosTabela = [
