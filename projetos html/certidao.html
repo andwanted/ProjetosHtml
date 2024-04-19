@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tradutor de Certidões</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
+
+
+
     <style>
      
         body {
@@ -37,6 +42,19 @@
         #brazilFields:hover, #americanFields:hover {
             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
+
+        .table-container {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            margin-top: 20px;
+            margin-right: 50px;
+            margin-left: 50px;
+        }
+        table {
+            width: 48%; /* Cada tabela ocupa quase metade da largura do container */
+            margin: 0;
+        }
     
         .field {
             display: flex;
@@ -60,9 +78,11 @@
         }
     
         .certificate-container table {
-            width: 100%; /* Ocupa a largura total do container */
+            width: 80%; /* Ocupa a largura total do container */
             border-collapse: collapse; /* Evita espaços duplos entre as bordas das células */
             margin-top: 20px;
+            margin-right: 50px;
+            margin-left: 50px;
         }
     
         .certificate-container th, .certificate-container td {
@@ -99,6 +119,9 @@
 
         
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6-beta.29/inputmask.min.js"></script>
+
 </head>
 <body>
     <div class="fields-container">
@@ -110,11 +133,10 @@
         </div>
     </div>
 
-    <table id="minhaTabela">
+    <div id="tableContainer" class="table-container">
+    <table id="minhaTabela1">
         <thead>
             <tr>
-                <th>Termo</th>
-                <th>Tradução</th>
                 <th>Termo</th>
                 <th>Tradução</th>
             </tr>
@@ -123,6 +145,19 @@
             <!-- As linhas da tabela serão adicionadas pelo JavaScript -->
         </tbody>
     </table>
+
+    <table id="minhaTabela2">
+        <thead>
+            <tr>
+                <th>Termo</th>
+                <th>Tradução</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- As linhas da tabela serão adicionadas pelo JavaScript -->
+        </tbody>
+    </table>
+    </div>
 
     <div class="certificate-container">
         <!-- Seu conteúdo de certificado permanece aqui -->
@@ -192,18 +227,27 @@
                 <td colspan="1"></td>
             </tr>
             <tr>
-                <td>Voter Card</td>
+                <td id="voter_card">Voter Card</td>
                 <td>...</td>
                 <td>...</td>
                 <td>...</td>
                 <td>...</td>
             </tr>
             <tr>
-                <td>Residential Zip Code</td>
+                <td id="residential_zip_cod">Residential Zip Code</td>
                 <td>...</td>
                 <td>...</td>
-                <td>Blood Type</td>
+                <td id="blood_type">Blood Type</td>
                 <td>...</td>
+            </tr>
+            
+        </table>
+        <table class="stamp-table">
+            <tr>
+                <td id="stamp_1">Stamp here</td>
+                <td id="stamp_2">Stamp here</td>
+                <td id="stamp_3">Stamp here</td>
+                <td id="stamp_4">Stamp here</td>
             </tr>
         </table>
     </div>
@@ -231,7 +275,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adicionar preenchimento para novos campos se necessário
 });
 
-        document.addEventListener('DOMContentLoaded', function() {
+
+
+            document.addEventListener('DOMContentLoaded', function() {
             const dadosTabela = [
                 { termo: "Assinatura do Oficial/Substituto", traducao: "Officer/Substitute's Signature" },
                 { termo: "Assinatura ilegível", traducao: "Illegible Signature" },
@@ -263,42 +309,83 @@ document.addEventListener('DOMContentLoaded', function() {
                 { termo: "Reconhecido em Cartório", traducao: "Notarized" },
                 { termo: "Selo do Conselho Nacional de Justiça", traducao: "National Council of Justice Seal" },
                 { termo: "Selo de Conformidade", traducao: "Compliance Seal" }
-            ];
-    
-            const corpoTabela = document.querySelector("#minhaTabela tbody");
+            ];  // Use sua lista original de dados aqui
+            
+            const splitIndex = 15;  // Definindo após quantas linhas a tabela deve dividir
+            const corpoTabela1 = document.querySelector("#minhaTabela1 tbody");
+            const corpoTabela2 = document.querySelector("#minhaTabela2 tbody");
+
             dadosTabela.forEach((item, index) => {
-                var linha = corpoTabela.insertRow();
+                const targetTableBody = index < splitIndex ? corpoTabela1 : corpoTabela2;
+                var linha = targetTableBody.insertRow();
                 var celulaTermo = linha.insertCell(0);
                 var celulaTraducao = linha.insertCell(1);
                 celulaTermo.textContent = item.termo;
                 celulaTraducao.textContent = item.traducao;
             });
-    
-            function sanitizeIdName(value) {
-                return value.replace(/[^a-zA-Z0-9]/g, '');
+        });
+                function sanitizeIdName(value) {
+            return value.replace(/[^a-zA-Z0-9]/g, '');
+        }
+
+        function addField(divId, fieldName) {
+            const div = document.getElementById(divId);
+            const fieldDiv = document.createElement('div');
+            fieldDiv.className = 'field';
+
+            const safeName = sanitizeIdName(fieldName);
+
+            // Criar e configurar a label
+            const label = document.createElement('label');
+            label.setAttribute('for', safeName);
+            label.textContent = fieldName;
+
+            // Criar e configurar o input
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.id = safeName;
+            input.name = safeName;
+
+            // Adicionar a label e o input ao div do campo
+            fieldDiv.appendChild(label);
+            fieldDiv.appendChild(input);
+            div.appendChild(fieldDiv);
+
+            // Aplicando a máscara de acordo com o campo
+            applyMask(safeName, fieldName);
+        }
+
+        function applyMask(safeName, fieldName) {
+            const input = document.getElementById(safeName);
+            switch (fieldName) {
+                case "Número do Registro":
+                case "Matrícula":
+                    new Inputmask("999999 999999 9999 9999999 99").mask(input);
+                    break;
+                case "Data de Emissão":
+                case "Data de Nascimento":
+                    new Inputmask("dd/mm/yyyy", { placeholder: "dd/mm/aaaa" }).mask(input);
+                    break;
+                case "Hora de Nascimento":
+                    new Inputmask("hh:mm", { placeholder: "hh:mm" }).mask(input);
+                    break;
+                case "Idade do Pai na Data do Nascimento":
+                case "Idade da Mãe na Data do Nascimento":
+                    new Inputmask("99 anos").mask(input);
+                    break;
             }
-    
-            function addField(divId, fieldName) {
-                const div = document.getElementById(divId);
-                const fieldDiv = document.createElement('div');
-                fieldDiv.className = 'field';
-                const safeName = sanitizeIdName(fieldName);
-                fieldDiv.innerHTML = `
-                    <label for="${safeName}">${fieldName}</label>
-                    <input type="text" id="${safeName}" name="${safeName}">
-                `;
-                div.appendChild(fieldDiv);
-            }
-    
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
             const fieldsBrazilian = [
-                    "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
-                    "Hora de Nascimento", "Local de Nascimento", "Nome do Pai", "Nacionalidade do Pai",
-                    "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
-                    "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
-                    "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", "Matrícula"
-                ];
-        
-                const fieldsAmerican = [
+                "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
+                "Hora de Nascimento", "Local de Nascimento", "Nome do Pai", "Nacionalidade do Pai",
+                "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
+                "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
+                "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", "Matrícula"
+            ];
+
+            const fieldsAmerican = [
                     "FEDERATIVE REPUBLIC OF BRAZIL", "CIVIL REGISTRY OF NATURAL PEOPLE",
                     "BIRTH CERTIFICATE", "NAME", "SOCIAL SECURITY CARD", "REGISTRATION", "Date and Time of Birth",
                     "City and State of Birth", "City and State of Registration", "Place of Birth, City and State",
@@ -308,12 +395,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     "ISSUANCE AGENCY", "VALIDITY DATE", "Contribution to the Federal Social Interaction Program",
                     "Passport Number", "Driver's License Information", "Voter's Registration"
                 ];
-        
-                fieldsBrazilian.forEach(field => addField('brazilFields', field));
-                fieldsAmerican.forEach(field => addField('americanFields', field));
-            
-                
+
+
+            fieldsBrazilian.forEach(field => addField('brazilFields', field));
+            fieldsAmerican.forEach(field => addField('americanFields', field));
         });
+
+        
     </script>
     
 </body>
