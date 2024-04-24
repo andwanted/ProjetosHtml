@@ -286,103 +286,79 @@
         div.appendChild(fieldDiv);
     }
 
-    // Funcao para preencher tabela de inputs
+// Campos da tabela brasileira atualizados
+const fieldsBrazilian = [
+    "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
+    "Hora de Nascimento", "Local de Nascimento", "Cidade e Estado de Nascimento", // Campo adicionado
+    "Nome do Pai", "Nacionalidade do Pai",
+    "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
+    "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
+    "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", // Campo já existente, garantindo mapeamento
+    "Matrícula", "Gêmeos", "Nome e Registro dos Gêmeos", "Data de Registro", 
+    "Notas do Registro", "Tipo de Documento", "Número", "Cartão de Segurança Social",
+    "Cidade e Estado do Registro","Notas alterações a adicionar"
+];
 
-    const fieldsBrazilian = [
-            "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
-            "Hora de Nascimento", "Local de Nascimento", "Nome do Pai", "Nacionalidade do Pai",
-            "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
-            "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
-            "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", "Matrícula"
-        ];
+// Campos da tabela americana atualizados
+const fieldsAmerican = [
+    "REGISTRATION NUMBER OF ALIVE BIRTH", "ISSUANCE DATE", "NAME", "GENDER", "DATE AND TIME OF BIRTH",
+    "PLACE OF BIRTH, CITY AND STATE", "FATHER", "MOTHER", "PATERNAL GRANDPARENTS", "MATERNAL GRANDPARENTS",
+    "TWINS", "NAME AND REGISTRATION OF TWINS", "DATE OF REGISTRATION", "NOTES AMENDMENTS TO ADD", 
+    "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "SOCIAL SECURITY CARD", "REGISTRATION",
+    "CITY AND STATE OF BIRTH", "CITY AND STATE OF REGISTRATION", "OBSERVATIONS" // Campo adicionado
+];
 
-        const fieldsAmerican = [
-            "REGISTRATION NUMBER OF ALIVE BIRTH", "ISSUANCE DATE", "NAME", "GENDER", "DATE AND TIME OF BIRTH",
-            "PLACE OF BIRTH, CITY AND STATE", "FATHER", "MOTHER", "PATERNAL GRANDPARENTS", "MATERNAL GRANDPARENTS",
-            "TWINS", "NAME AND REGISTRATION OF TWINS", "DATE OF REGISTRATION", "NOTES AMENDMENTS TO ADD", 
-            "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "SOCIAL SECURITY CARD", "REGISTRATION",
-            "CITY AND STATE OF BIRTH", "CITY AND STATE OF REGISTRATION"
-        ];
 
-        // Mapeamento dos campos correspondentes
-        const fieldMapping = {
-            "Número do Registro": "REGISTRATION NUMBER OF ALIVE BIRTH",
-            "Data de Emissão": "ISSUANCE DATE",
-            "Nome do Registrado": "NAME",
-            "Sexo": "GENDER",
-            "Data de Nascimento": "DATE AND TIME OF BIRTH",
-            "Local de Nascimento": "PLACE OF BIRTH, CITY AND STATE",
-            "Nome do Pai": "FATHER",
-            "Nome da Mãe": "MOTHER",
-            "Avós Paternos": "PATERNAL GRANDPARENTS",
-            "Avós Maternos": "MATERNAL GRANDPARENTS",
-            "Observações": "NOTES AMENDMENTS TO ADD",
-            "Matrícula": "REGISTRATION"
-        };
 
-        function populateTable(tableId, fields, isInput) {
-            const table = document.getElementById(tableId);
-            fields.forEach(field => {
-                const row = document.createElement('tr');
-                const th = document.createElement('th');
-                th.textContent = field;
-                row.appendChild(th);
+const fieldMapping = {
+    "Número do Registro": "REGISTRATION NUMBER OF ALIVE BIRTH",
+    "Data de Emissão": "ISSUANCE DATE",
+    "Nome do Registrado": "NAME",
+    "Sexo": "GENDER",
+    "Data de Nascimento": "DATE AND TIME OF BIRTH",
+    "Hora de Nascimento": "DATE AND TIME OF BIRTH", // Mapeamento confirmado
+    "Local de Nascimento": "PLACE OF BIRTH, CITY AND STATE",
+    "Cidade e Estado de Nascimento": "CITY AND STATE OF BIRTH", // Adicionado ao mapeamento
+    "Nome do Pai": "FATHER",
+    "Nome da Mãe": "MOTHER",
+    "Avós Paternos": "PATERNAL GRANDPARENTS",
+    "Avós Maternos": "MATERNAL GRANDPARENTS",
+    "Gêmeos": "TWINS",
+    "Nome e Registro dos Gêmeos": "NAME AND REGISTRATION OF TWINS",
+    "Data de Registro": "DATE OF REGISTRATION",
+    "Notas do Registro": "REGISTRATION NOTES",
+    "Tipo de Documento": "DOCUMENT TYPE",
+    "Número": "NUMBER",
+    "Cartão de Segurança Social": "SOCIAL SECURITY CARD",
+    "Matrícula": "REGISTRATION",
+    "Cidade e Estado do Registro": "CITY AND STATE OF REGISTRATION",
+    "Notas alterações a adicionar":"NOTES AMENDMENTS TO ADD",
+    "Observações": "OBSERVATIONS" // Mapeamento para o novo campo adicionado
+};
 
-                const td = document.createElement('td');
-                if (isInput) {
-                    const input = document.createElement('input');
-                    input.id = `br_${field}`;
-                    input.setAttribute('oninput', `validateInput(this, '${field}')`);
-                    td.appendChild(input);
-                } else {
-                    td.id = `us_${fieldMapping[field] || field}`;
-                }
-                row.appendChild(td);
-                table.appendChild(row);
-            });
+function populateTable(tableId, fields, isInput) {
+    const table = document.getElementById(tableId);
+    fields.forEach(field => {
+        const row = document.createElement('tr');
+        const th = document.createElement('th');
+        th.textContent = field;
+        row.appendChild(th);
+
+        const td = document.createElement('td');
+        if (isInput) {
+            const input = document.createElement('input');
+            input.id = `br_${field}`;
+            input.setAttribute('oninput', `validateInput(this, '${field}')`);
+            td.appendChild(input);
+        } else {
+            td.id = `us_${fieldMapping[field] || field}`;
         }
+        row.appendChild(td);
+        table.appendChild(row);
+    });
+}
 
-        function transferirDados() {
-            Object.keys(fieldMapping).forEach(brField => {
-                const brInput = document.getElementById(`br_${brField}`);
-                const usTd = document.getElementById(`us_${fieldMapping[brField]}`);
-                if (brInput && usTd) {
-                    let maskedValue = applyMask(brInput.value, brField);
-                    usTd.textContent = maskedValue;
-                }
-            });
-        }
-
-        function limparDados() {
-            document.querySelectorAll('input').forEach(input => input.value = '');
-            document.querySelectorAll('td[id^="us_"]').forEach(td => td.textContent = '');
-        }
-
-        function validateInput(input, field) {
-            let value = input.value;
-            if (field.includes("Data")) {
-                input.value = value.replace(/[^0-9/]/g, '').replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
-            } else if (field === "Número do Registro" || field === "Matrícula") {
-                input.value = value.replace(/[^0-9]/g, '');
-            } else if (field === "Nome do Registrado" || field === "Nome do Pai" || field === "Nome da Mãe") {
-                input.value = value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, l => l.toUpperCase());
-            }
-        }
-
-        function applyMask(value, field) {
-            if (field.includes("Data")) {
-                return value.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$1-$2'); // Converte de dd/mm/yyyy para yyyy-mm-dd
-            } else if (field === "Número do Registro" || field === "Matrícula") {
-                return value;
-            } else {
-                return value.toUpperCase(); // Maiúsculas para outros campos de texto
-            }
-        }
-
-        populateTable('brazilTable', fieldsBrazilian, true);
-        populateTable('americanTable', fieldsAmerican, false);
-
-        function transferirDados() {
+function transferirDados() {
     Object.keys(fieldMapping).forEach(brField => {
         const brInput = document.getElementById(`br_${brField}`);
         const usTd = document.getElementById(`us_${fieldMapping[brField]}`);
@@ -402,6 +378,36 @@
         }
     });
 }
+
+function limparDados() {
+    document.querySelectorAll('input').forEach(input => input.value = '');
+    document.querySelectorAll('td[id^="us_"]').forEach(td => td.textContent = '');
+}
+
+function validateInput(input, field) {
+    let value = input.value;
+    if (field.includes("Data")) {
+        input.value = value.replace(/[^0-9/]/g, '').replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+    } else if (field === "Número do Registro" || field === "Matrícula") {
+        input.value = value.replace(/[^0-9]/g, '');
+    } else if (field === "Nome do Registrado" || field === "Nome do Pai" || field === "Nome da Mãe") {
+        input.value = value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, l => l.toUpperCase());
+    }
+}
+
+function applyMask(value, field) {
+    if (field.includes("Data")) {
+        return value.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$1-$2'); // Converte de dd/mm/yyyy para yyyy-mm-dd
+    } else if (field === "Número do Registro" || field === "Matrícula") {
+        return value;
+    } else {
+        return value.toUpperCase(); // Maiúsculas para outros campos de texto
+    }
+}
+
+populateTable('brazilTable', fieldsBrazilian, true);
+populateTable('americanTable', fieldsAmerican, false);
+
 
 
     // Event Listener para DOMContentLoaded

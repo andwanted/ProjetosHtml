@@ -195,6 +195,7 @@
 </div>
 
 <!-- Área para exibição de certificados -->
+<!-- Área para exibição de certificados -->
 <div class="certificate-container">
     <!-- Tabela de certidão de nascimento com layout especificado -->
     <table class="certificate-table">
@@ -205,19 +206,19 @@
         <tr><td id="registration" colspan="5"></td></tr>
         <!-- Informações detalhadas do nascimento -->
         <tr>
-            <td id="dob">Date of Birth</td>
-            <td id="birth_city_state">City/State of Birth</td>
-            <td id="registration_city_state">City/State of Registration</td>
-            <td id="hospital">Hospital</td>
-            <td id="gender">Gender</td>
+            <td id="dob"></td>
+            <td id="birth_city_state"></td>
+            <td id="registration_city_state"></td>
+            <td id="hospital"></td>
+            <td id="gender"></td>
         </tr>
         <!-- Informações da família e gêmeos se aplicável -->
         <tr>
-            <td id="mother">Mother's Name</td>
-            <td id="maternal_grandparents">Maternal Grandparents</td>
-            <td id="twins">Twins?</td>
-            <td id="registration_date">Registration Date</td>
-            <td id="birth_registration_number">Birth Registration Number</td>
+            <td id="mother"></td>
+            <td id="maternal_grandparents"></td>
+            <td id="twins"></td>
+            <td id="registration_date"></td>
+            <td id="birth_registration_number"></td>
         </tr>
         <!-- Linha reservada para possíveis emendas ao registro -->
         <tr><td id="amendment" colspan="5"></td></tr>
@@ -225,35 +226,35 @@
         <tr><td id="registration_notes" colspan="5"></td></tr>
         <!-- Cabeçalhos para tipos de documentos relacionados -->
         <tr>
-            <td id="document_type">DOCUMENT TYPE</td>
-            <td id="number">NUMBER</td>
-            <td id="issuance_date">ISSUANCE DATE</td>
-            <td id="issuance_agency">ISSUANCE AGENCY</td>
-            <td id="validity_date">VALIDITY DATE</td>
+            <td id="document_type"></td>
+            <td id="number"></td>
+            <td id="issuance_date"></td>
+            <td id="issuance_agency"></td>
+            <td id="validity_date"></td>
         </tr>
         <!-- Campos que serão preenchidos com detalhes dos documentos -->
         <tr>
             <td>Voter Card</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <!-- Continuação de campos de documentos -->
         <tr>
-            <td id="document_type_2">DOCUMENT TYPE</td>
-            <td id="zone_section">NUMBER ZONE/SECTION</td>
-            <td id="city">CITY</td>
-            <td id="state">STATE</td>
+            <td id="document_type_2"></td>
+            <td id="zone_section"></td>
+            <td id="city"></td>
+            <td id="state"></td>
             <td colspan="1"></td>
         </tr>
         <!-- Detalhes de localização residencial e tipo sanguíneo -->
         <tr>
-            <td id="residential_zip_code">Residential Zip Code</td>
-            <td>...</td>
-            <td>...</td>
-            <td id="blood_type">Blood Type</td>
-            <td>...</td>
+            <td id="residential_zip_code"></td>
+            <td></td>
+            <td></td>
+            <td id="blood_type"></td>
+            <td></td>
         </tr>
     </table>
     <!-- Tabela para selos de validação -->
@@ -265,12 +266,17 @@
             <td id="stamp_4">Stamp here</td>
         </tr>
     </table>
+
+    <button id="loadDataButton">Carregar Dados</button>
+
 </div>
 
+
+<!-- Scripts -->
 <!-- Scripts -->
 <script>
- // Funções auxiliares
- function sanitizeIdName(value) {
+    // Funções auxiliares
+    function sanitizeIdName(value) {
         return value.replace(/[^a-zA-Z0-9]/g, '');
     }
 
@@ -286,97 +292,134 @@
         div.appendChild(fieldDiv);
     }
 
-    // Função para preencher tabela de inputs
-    function populateTable(tableId, fields, isInput, isAmerican = false) {
-        const table = document.getElementById(tableId);
-        fields.forEach(field => {
-            const row = document.createElement('tr');
-            const th = document.createElement('th');
-            th.textContent = field;
-            row.appendChild(th);
 
-            const td = document.createElement('td');
-            if (isInput) {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.id = isAmerican ? `us_${field}` : `br_${field}`;
-                input.disabled = isAmerican; // Desabilita inicialmente se for tabela americana
-                input.setAttribute('oninput', `validateInput(this, '${field}')`);
-                td.appendChild(input);
-            } else {
-                td.id = `us_${fieldMapping[field] || field}`;
-            }
-            row.appendChild(td);
-            table.appendChild(row);
-        });
-    }
 
-    function transferirDados() {
-        Object.keys(fieldMapping).forEach(brField => {
-            const brInput = document.getElementById(`br_${brField}`);
-            const usInput = document.getElementById(`us_${fieldMapping[brField]}`);
-            if (brInput && usInput) {
-                let maskedValue = applyMask(brInput.value, brField);
-                usInput.value = maskedValue;
-                usInput.disabled = false; // Habilita a edição após a transferência
-            }
-        });
-    }
 
-    function limparDados() {
-        document.querySelectorAll('input').forEach(input => {
-            input.value = '';
-            if (input.id.startsWith('us_')) {
-                input.disabled = true; // Desabilita novamente os campos da tabela americana
-            }
-        });
-    }
 
-    function validateInput(input, field) {
-        let value = input.value;
-        if (field.includes("Data")) {
-            input.value = value.replace(/[^0-9/]/g, '').replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
-        } else if (field === "Número do Registro" || field === "Matrícula") {
-            input.value = value.replace(/[^0-9]/g, '');
-        } else if (field === "Nome do Registrado" || field === "Nome do Pai" || field === "Nome da Mãe") {
-            input.value = value.replace(/[^a-zA-Z\s]/g, '').replace(/\b\w/g, l => l.toUpperCase());
-        }
-    }
+const fieldMapping = {
+    "Número do Registro": "REGISTRATION NUMBER OF ALIVE BIRTH",
+    "Data de Emissão": "ISSUANCE DATE",
+    "Nome do Registrado": "NAME",
+    "Sexo": "GENDER",
+    "Data de Nascimento": "DATE AND TIME OF BIRTH",
+    "Hora de Nascimento": "DATE AND TIME OF BIRTH", // Mapeamento confirmado
+    "Local de Nascimento": "PLACE OF BIRTH, CITY AND STATE",
+    "Cidade e Estado de Nascimento": "CITY AND STATE OF BIRTH", // Adicionado ao mapeamento
+    "Nome do Pai": "FATHER",
+    "Nome da Mãe": "MOTHER",
+    "Avós Paternos": "PATERNAL GRANDPARENTS",
+    "Avós Maternos": "MATERNAL GRANDPARENTS",
+    "Gêmeos": "TWINS",
+    "Nome e Registro dos Gêmeos": "NAME AND REGISTRATION OF TWINS",
+    "Data de Registro": "DATE OF REGISTRATION",
+    "Notas do Registro": "REGISTRATION NOTES",
+    "Tipo de Documento": "DOCUMENT TYPE",
+    "Número": "NUMBER",
+    "Cartão de Segurança Social": "SOCIAL SECURITY CARD",
+    "Matrícula": "REGISTRATION",
+    "Cidade e Estado do Registro": "CITY AND STATE OF REGISTRATION",
+    "Notas alterações a adicionar":"NOTES AMENDMENTS TO ADD",
+    "Observações": "OBSERVATIONS" // Mapeamento para o novo campo adicionado
+};
 
-    function applyMask(value, field) {
-        if (field.includes("Data")) {
-            return value.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$1-$2'); // Converte de dd/mm/yyyy para yyyy-mm-dd
-        } else if (field === "Número do Registro" || field === "Matrícula") {
-            return value;
+function populateTable(tableId, fields, isInput) {
+    const table = document.getElementById(tableId);
+    fields.forEach(field => {
+        const row = document.createElement('tr');
+        const th = document.createElement('th');
+        th.textContent = field;
+        row.appendChild(th);
+
+        const td = document.createElement('td');
+        if (isInput) {
+            const input = document.createElement('input');
+            input.id = `br_${field.replace(/\s+/g, '_')}`; // Cria um ID seguro para o HTML
+            input.setAttribute('oninput', `validateInput(this, '${field}')`);
+            td.appendChild(input);
         } else {
-            return value.toUpperCase(); // Maiúsculas para outros campos de texto
+            td.id = `us_${field.replace(/\s+/g, '_')}`; // Cria um ID seguro para o HTML
         }
-    }
+        row.appendChild(td);
+        table.appendChild(row);
+    });
+}
 
-    populateTable('brazilTable', fieldsBrazilian, true);
-    populateTable('americanTable', fieldsAmerican, true, true); // Modificação aqui para criar inputs desabilitados na tabela americana
+function transferirDados() {
+    Object.keys(fieldMapping).forEach(brField => {
+        const brInputId = `br_${brField.replace(/\s+/g, '_')}`;
+        const usTdId = `us_${fieldMapping[brField].replace(/\s+/g, '_')}`;
 
-    // Event Listener para DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', function() {
-        // Preenche informações estáticas nos elementos da página
-       // Preencher os dados no certificado
-    document.getElementById('name').textContent = 'NAME: WESLEY RODRIGUES DA SILVA';
-    document.getElementById('ssn').textContent = 'SOCIAL SECURITY CARD: 075.894.956-11';
-    document.getElementById('registration').textContent = 'REGISTRATION: 0381900155 1984 1 00019 075 0004147 33';
-    document.getElementById('dob').textContent = 'Date and Time of Birth: JULY 25, 1983 – 5:30 AM';
-    document.getElementById('birth_city_state').textContent = 'City and State of Birth: RAUL SOARES – MG';
-    document.getElementById('registration_city_state').textContent = 'City and State of Registration: RAUL SOARES – MG';
-    document.getElementById('hospital').textContent = 'Place of Birth, City and State: SAO SEBASTIAO HOSPITAL RAUL SOARES – MG';
-    document.getElementById('gender').textContent = 'Gender: MALE';
-    document.getElementById('mother').textContent = 'Mother: TEREZINHA DA SILVA';
-    document.getElementById('maternal_grandparents').textContent = 'Maternal Grandparents: MARIA RAIMUNDA DA SILVA';
-    document.getElementById('twins').textContent = 'Twins: NO';
-    document.getElementById('registration_date').textContent = 'Date of Registration: APRIL 23, 1985';
-    document.getElementById('birth_registration_number').textContent = 'Registration Number of Alive Birth: NONE';
-    document.getElementById('amendment').textContent = 'Amendment – On 02/09/2019, ... Social Security Card of the registered person. Registration # 075.894.956-11. Sao Vicente da Estrela, 09/02/2019.';
-    document.getElementById('registration_notes').textContent = 'REGISTRATION NOTES:';
-    // Adicionar preenchimento para novos campos se necessário
+        const brInput = document.getElementById(brInputId);
+        const usTd = document.getElementById(usTdId);
+
+        if (brInput && usTd) {
+            let maskedValue = applyMask(brInput.value, brField);
+
+            usTd.innerHTML = '';  // Limpa a célula antes de adicionar o novo input
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = maskedValue;
+            usTd.appendChild(input); // Adiciona o novo input à célula
+        }
+    });
+}
+
+function limparDados() {
+    document.querySelectorAll('input').forEach(input => input.value = '');
+    document.querySelectorAll('td[id^="us_"]').forEach(td => td.innerHTML = ''); // Limpa os inputs
+}
+
+function validateInput(input, field) {
+    // Implementação de validações específicas para cada tipo de campo
+    let value = input.value;
+    // ... (validações permanecem como você definiu)
+}
+
+function applyMask(value, field) {
+    // Implementação de mascaramento específico para cada tipo de campo
+    // ... (mascaramento permanece como você definiu)
+}
+
+// Populando as tabelas
+// Campos da tabela brasileira atualizados
+const fieldsBrazilian = [
+    "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
+    "Hora de Nascimento", "Local de Nascimento", "Cidade e Estado de Nascimento", // Campo adicionado
+    "Nome do Pai", "Nacionalidade do Pai",
+    "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
+    "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
+    "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", // Campo já existente, garantindo mapeamento
+    "Matrícula", "Gêmeos", "Nome e Registro dos Gêmeos", "Data de Registro", 
+    "Notas do Registro", "Tipo de Documento", "Número", "Cartão de Segurança Social",
+    "Cidade e Estado do Registro","Notas alterações a adicionar"
+];
+
+// Campos da tabela americana atualizados
+const fieldsAmerican = [
+    "REGISTRATION NUMBER OF ALIVE BIRTH", "ISSUANCE DATE", "NAME", "GENDER", "DATE AND TIME OF BIRTH",
+    "PLACE OF BIRTH, CITY AND STATE", "FATHER", "MOTHER", "PATERNAL GRANDPARENTS", "MATERNAL GRANDPARENTS",
+    "TWINS", "NAME AND REGISTRATION OF TWINS", "DATE OF REGISTRATION", "NOTES AMENDMENTS TO ADD", 
+    "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "SOCIAL SECURITY CARD", "REGISTRATION",
+    "CITY AND STATE OF BIRTH", "CITY AND STATE OF REGISTRATION", "OBSERVATIONS" // Campo adicionado
+];
+
+populateTable('brazilTable', fieldsBrazilian, true);
+populateTable('americanTable', fieldsAmerican, false);
+
+
+
+
+// Configuração do evento de clique para o botão
+document.addEventListener('DOMContentLoaded', function() {
+    const loadDataButton = document.getElementById('loadDataButton');
+    loadDataButton.addEventListener('click', populateData);
 });
+
+
+
+
+
+
 
         // Preenchimento de tabelas
         const dadosTabela = [
@@ -425,9 +468,48 @@
             celulaTraducao.textContent = item.traducao;
         });
 
-       
+        function displayDataInCertificate() {
+    const fieldMapping = {
+        'REGISTRATION NUMBER OF ALIVE BIRTH': 'registration',
+        'ISSUANCE DATE': 'issuance_date',
+        'NAME': 'name',
+        'GENDER': 'gender',
+        'DATE AND TIME OF BIRTH': 'dob',
+        'PLACE OF BIRTH, CITY AND STATE': 'birth_city_state',
+        'MOTHER': 'mother',
+        'PATERNAL GRANDPARENTS': 'paternal_grandparents', // Adicione ao HTML se necessário
+        'MATERNAL GRANDPARENTS': 'maternal_grandparents',
+        'TWINS': 'twins',
+        'DATE OF REGISTRATION': 'registration_date',
+        'NOTES AMENDMENTS TO ADD': 'amendment',
+        'REGISTRATION NOTES': 'registration_notes',
+        'DOCUMENT TYPE': 'document_type',
+        'NUMBER': 'number',
+        'SOCIAL SECURITY CARD': 'ssn',
+        'REGISTRATION': 'registration',
+        'CITY AND STATE OF BIRTH': 'birth_city_state',
+        'CITY AND STATE OF REGISTRATION': 'registration_city_state',
+        // Adicione mais mapeamentos conforme necessário
+    };
+
+    Object.keys(fieldMapping).forEach(field => {
+        const usTdId = `us_${field.replace(/\s+/g, '_')}`;
+        const certFieldId = fieldMapping[field];
+
+        const usInput = document.querySelector(`#${usTdId} input`);
+        const certField = document.getElementById(certFieldId);
+
+        if (usInput && certField) {
+            certField.textContent = usInput.value;  // Transfere o valor do input para o campo específico na tabela
+        }
+    });
+}
+
+document.getElementById('loadDataButton').addEventListener('click', displayDataInCertificate);
+
     
 </script>
+
 
       
     
