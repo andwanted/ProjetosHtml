@@ -6,16 +6,17 @@
     <title>Tradutor de Certidões</title>
 
     <style>
-     
+        /* Configuração básica do corpo do documento */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif;  /* Define a fonte para Arial em todo o corpo do documento */
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            background-color: #f4f4f4; /* Cor de fundo suave */
+            background-color: #ebebeb; /* Cor de fundo mais clara para melhorar a legibilidade e acessibilidade */
         }
-
+    
+        /* Estilização do container principal */
         .container {
             display: flex;
             justify-content: space-between;
@@ -27,7 +28,7 @@
             margin-right: 20px;
         }
         .container th, td {
-            border: 1px solid black;
+            border: 1px solid #333; /* Bordas escuras para destacar elementos e melhorar o contraste */
             padding: 8px;
             text-align: left;
         }
@@ -35,41 +36,29 @@
             margin-top: 20px;
         }
     
+        /* Layout para agrupamento de campos de formulário */
         .fields-container {
-            display: flex; /* Restaurando flex para layout lado a lado */
-            justify-content: space-between; /* Espaço entre as divisões */
+            display: flex;
+            justify-content: space-between;
             width: 100%;
-            max-width: 960px; /* Controla a largura máxima */
+            max-width: 960px;
             margin-top: 20px;
         }
-
+    
+        /* Alinhamento central para controles de botão */
         .btnControl {
-    display: flex;
-    justify-content: center; /* Alinha horizontalmente ao centro */
-    align-items: center; /* Alinha verticalmente ao centro, se necessário */
-    margin-top: 20px; /* Espaçamento no topo para distanciar da conteúdo acima */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
         }
-
+    
+        /* Espaçamento padrão para botões */
         button {
-            margin: 0 10px; /* Espaçamento entre botões */
-        }
-
-    
-        #brazilFields, #americanFields {
-            padding: 20px;
-            flex: 1; /* Faz cada <div> ocupar espaços iguais */
-            margin: 0 10px; /* Espaço lateral entre os campos */
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: box-shadow 0.3s;
+            margin: 0 10px;
         }
     
-        #brazilFields:hover, #americanFields:hover {
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-
+        /* Container para tabelas com configuração de layout flexível */
         .table-container {
             display: flex;
             justify-content: space-around;
@@ -79,50 +68,58 @@
             margin-left: 50px;
         }
         table {
-            width: 48%; /* Cada tabela ocupa quase metade da largura do container */
+            width: 48%;
             margin: 0;
         }
     
+        /* Estilo para campos individuais dentro de formulários */
         .field {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
     
+        /* Estilo específico para labels nos campos */
         .field label {
-            flex-basis: 30%; /* Ajustado para um melhor controle do layout */
+            flex-basis: 30%;
             margin-right: 10px;
             font-size: 14px;
             color: #333;
         }
     
+        /* Configurações de estilo para entradas de dados */
         .field input {
-            flex-grow: 1; /* Permite que o input cresça para preencher o espaço disponível */
+            flex-grow: 1;
             padding: 8px;
             font-size: 14px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
     
+        /* Estilização específica para tabelas dentro de .certificate-container */
         .certificate-container table {
-            width: 80%; /* Ocupa a largura total do container */
-            border-collapse: collapse; /* Evita espaços duplos entre as bordas das células */
+            width: 80%;
+            border-collapse: collapse;
             margin-top: 20px;
             margin-right: 50px;
             margin-left: 50px;
         }
     
+        /* Estilização de células e cabeçalhos de tabelas de certificados */
         .certificate-container th, .certificate-container td {
             padding: 10px;
-            border: 1px solid #ddd; /* Linhas leves para definição */
+            border: 1px solid #ddd;
             text-align: left;
         }
     
+        /* Estilo para cabeçalhos de tabela para melhorar a legibilidade */
         .certificate-container th {
-            background-color: #f8f8f8; /* Fundo claro para cabeçalhos */
+            background-color: #555; /* Cor de fundo mais escura para melhor contraste e destaque */
+            color: #fff; /* Texto branco para máximo contraste com o fundo */
             font-weight: bold;
         }
-
+    
+        /* Estilo básico para tabelas de certificados */
         .certificate-table {
             width: 100%;
             border-collapse: collapse;
@@ -135,42 +132,42 @@
             text-align: left;
         }
     
+        /* Ajustes responsivos para dispositivos menores */
         @media (max-width: 768px) {
             .fields-container {
-                flex-direction: column; /* Empilha as divisões verticalmente em telas menores */
-            }
-            #brazilFields, #americanFields {
-                margin: 10px 0; /* Ajusta as margens para verticalmente empilhado */
+                flex-direction: column; /* Muda a direção dos flex items para coluna em telas menores */
             }
         }
-
-        
     </style>
+    
 
 </head>
-<body>
-    <div class="container">
-        <table id="brazilTable">
-            <tr>
-                <th>Campo</th>
-                <th>Valor</th>
-            </tr>
-            <!-- Campos Brasileiros serão inseridos aqui dinamicamente -->
-        </table>
-        
-        <table id="americanTable">
-            <tr>
-                <th>Campo</th>
-                <th>Valor</th>
-            </tr>
-            <!-- Campos Americanos serão inseridos aqui dinamicamente -->
-        </table>
-    </div>
-    <button onclick="transferirDados()">Enviar</button>
-    <button onclick="limparDados()">Apagar</button>
+<div class="container">
+    <!-- Tabela para exibição de campos específicos do Brasil -->
+    <table id="brazilTable">
+        <tr>
+            <th>Campo</th>
+            <th>Valor</th>
+        </tr>
+        <!-- As células serão preenchidas dinamicamente com dados brasileiros -->
+    </table>
 
+    <!-- Tabela para exibição de campos específicos dos Estados Unidos -->
+    <table id="americanTable">
+        <tr>
+            <th>Campo</th>
+            <th>Valor</th>
+        </tr>
+        <!-- As células serão preenchidas dinamicamente com dados americanos -->
+    </table>
+</div>
 
-    <div id="tableContainer" class="table-container">
+<!-- Botões para enviar e limpar dados, com eventos de clique definidos -->
+<button onclick="transferirDados()">Enviar</button>
+<button onclick="limparDados()">Apagar</button>
+
+<div id="tableContainer" class="table-container">
+    <!-- Tabela para termos e suas traduções -->
     <table id="minhaTabela1">
         <thead>
             <tr>
@@ -179,10 +176,11 @@
             </tr>
         </thead>
         <tbody>
-            <!-- As linhas da tabela serão adicionadas pelo JavaScript -->
+            <!-- Linhas serão adicionadas dinamicamente pelo JavaScript -->
         </tbody>
     </table>
 
+    <!-- Outra tabela para termos e suas traduções -->
     <table id="minhaTabela2">
         <thead>
             <tr>
@@ -191,107 +189,83 @@
             </tr>
         </thead>
         <tbody>
-            <!-- As linhas da tabela serão adicionadas pelo JavaScript -->
+            <!-- Linhas serão adicionadas dinamicamente pelo JavaScript -->
         </tbody>
     </table>
-    </div>
+</div>
 
-    <div class="certificate-container">
-        <!-- Seu conteúdo de certificado permanece aqui -->
-        <table class="certificate-table">
-            <tr><th id="title" colspan="5">BIRTH CERTIFICATE</th></tr>
-            <tr><td id="name" colspan="5"></td></tr>
-            <tr><td id="ssn" colspan="5"></td></tr>
-            <tr><td id="registration" colspan="5"></td></tr>
-            <tr>
-                <td id="dob"></td>
-                <td id="birth_city_state"></td>
-                <td id="registration_city_state"></td>
-                <td id="hospital"></td>
-                <td id="gender"></td>
-            </tr>
-            <tr>
-                <td id="mother"></td>
-                <td id="maternal_grandparents"></td>
-                <td id="twins"></td>
-                <td id="registration_date"></td>
-                <td id="birth_registration_number"></td>
-            </tr>
-            <tr><td id="amendment" colspan="5"></td></tr>
-            <tr><td id="registration_notes" colspan="5"></td></tr>
-            <!-- Linhas com pontos indicativos -->
-            <tr>
-                <td id="document_type">DOCUMENT TYPE</td>
-                <td id="number">NUMBER</td>
-                <td id="issuance_date">ISSUANCE DATE</td>
-                <td id="issuance_agency">ISSUANCE AGENCY</td>
-                <td id="validity_date">VALIDITY DATE</td>
-            </tr>
-            <tr>
-                <td>ID</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                
-            </tr>
-            <tr>
-                <td>Contribution to the Federal Social Interaction Program</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-            </tr>
-            <tr>
-                <td>Passport</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-            </tr>
-            <tr>
-                <td>National Health Card</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-            </tr>
-            <tr>
-                <td id="document_type_2">DOCUMENT TYPE</td>
-                <td id="zone_section">NUMBER ZONE/SECTION</td>
-                <td id="city">CITY</td>
-                <td id="state">STATE</td>
-                <td colspan="1"></td>
-            </tr>
-            <tr>
-                <td id="voter_card">Voter Card</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-            </tr>
-            <tr>
-                <td id="residential_zip_cod">Residential Zip Code</td>
-                <td>...</td>
-                <td>...</td>
-                <td id="blood_type">Blood Type</td>
-                <td>...</td>
-            </tr>
-            
-        </table>
-        <table class="stamp-table">
-            <tr>
-                <td id="stamp_1">Stamp here</td>
-                <td id="stamp_2">Stamp here</td>
-                <td id="stamp_3">Stamp here</td>
-                <td id="stamp_4">Stamp here</td>
-            </tr>
-        </table>
-    </div>
-    
-    
- <!-- HTML antes do script -->
-
+<!-- Área para exibição de certificados -->
+<div class="certificate-container">
+    <!-- Tabela de certidão de nascimento com layout especificado -->
+    <table class="certificate-table">
+        <tr><th id="title" colspan="5">BIRTH CERTIFICATE</th></tr>
+        <tr><td id="name" colspan="5"></td></tr>
+        <!-- Campos adicionais com informações de registro -->
+        <tr><td id="ssn" colspan="5"></td></tr>
+        <tr><td id="registration" colspan="5"></td></tr>
+        <!-- Informações detalhadas do nascimento -->
+        <tr>
+            <td id="dob">Date of Birth</td>
+            <td id="birth_city_state">City/State of Birth</td>
+            <td id="registration_city_state">City/State of Registration</td>
+            <td id="hospital">Hospital</td>
+            <td id="gender">Gender</td>
+        </tr>
+        <!-- Informações da família e gêmeos se aplicável -->
+        <tr>
+            <td id="mother">Mother's Name</td>
+            <td id="maternal_grandparents">Maternal Grandparents</td>
+            <td id="twins">Twins?</td>
+            <td id="registration_date">Registration Date</td>
+            <td id="birth_registration_number">Birth Registration Number</td>
+        </tr>
+        <!-- Linha reservada para possíveis emendas ao registro -->
+        <tr><td id="amendment" colspan="5"></td></tr>
+        <!-- Notas adicionais sobre o registro -->
+        <tr><td id="registration_notes" colspan="5"></td></tr>
+        <!-- Cabeçalhos para tipos de documentos relacionados -->
+        <tr>
+            <td id="document_type">DOCUMENT TYPE</td>
+            <td id="number">NUMBER</td>
+            <td id="issuance_date">ISSUANCE DATE</td>
+            <td id="issuance_agency">ISSUANCE AGENCY</td>
+            <td id="validity_date">VALIDITY DATE</td>
+        </tr>
+        <!-- Campos que serão preenchidos com detalhes dos documentos -->
+        <tr>
+            <td>Voter Card</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+        <!-- Continuação de campos de documentos -->
+        <tr>
+            <td id="document_type_2">DOCUMENT TYPE</td>
+            <td id="zone_section">NUMBER ZONE/SECTION</td>
+            <td id="city">CITY</td>
+            <td id="state">STATE</td>
+            <td colspan="1"></td>
+        </tr>
+        <!-- Detalhes de localização residencial e tipo sanguíneo -->
+        <tr>
+            <td id="residential_zip_code">Residential Zip Code</td>
+            <td>...</td>
+            <td>...</td>
+            <td id="blood_type">Blood Type</td>
+            <td>...</td>
+        </tr>
+    </table>
+    <!-- Tabela para selos de validação -->
+    <table class="stamp-table">
+        <tr>
+            <td id="stamp_1">Stamp here</td>
+            <td id="stamp_2">Stamp here</td>
+            <td id="stamp_3">Stamp here</td>
+            <td id="stamp_4">Stamp here</td>
+        </tr>
+    </table>
+</div>
 
 <!-- Scripts -->
 <script>
@@ -408,6 +382,28 @@
         populateTable('brazilTable', fieldsBrazilian, true);
         populateTable('americanTable', fieldsAmerican, false);
 
+        function transferirDados() {
+    Object.keys(fieldMapping).forEach(brField => {
+        const brInput = document.getElementById(`br_${brField}`);
+        const usTd = document.getElementById(`us_${fieldMapping[brField]}`);
+        if (brInput && usTd) {
+            let maskedValue = applyMask(brInput.value, brField);
+
+            // Limpa a célula antes de adicionar o novo input
+            usTd.innerHTML = '';
+
+            // Cria um input e define seu valor como o valor mascarado
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = maskedValue;
+
+            // Adiciona o novo input à célula
+            usTd.appendChild(input);
+        }
+    });
+}
+
+
     // Event Listener para DOMContentLoaded
     document.addEventListener('DOMContentLoaded', function() {
         // Preenche informações estáticas nos elementos da página
@@ -481,7 +477,7 @@
     
 </script>
 
-        
+      
     
 </body>
 </html>
