@@ -1,517 +1,56 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tradutor de Certidões</title>
-
-    <style>
-        /* Configuração básica do corpo do documento */
-        body {
-            font-family: 'Arial', sans-serif;  /* Define a fonte para Arial em todo o corpo do documento */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            background-color: #ebebeb; /* Cor de fundo mais clara para melhorar a legibilidade e acessibilidade */
-        }
-    
-        /* Estilização do container principal */
-        .container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-        .container table {
-            border-collapse: collapse;
-            width: 50%;
-            margin-right: 20px;
-        }
-        .container th, td {
-            border: 1px solid #333; /* Bordas escuras para destacar elementos e melhorar o contraste */
-            padding: 8px;
-            text-align: left;
-        }
-        .container button {
-            margin-top: 20px;
-        }
-    
-        /* Layout para agrupamento de campos de formulário */
-        .fields-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 960px;
-            margin-top: 20px;
-        }
-    
-        /* Alinhamento central para controles de botão */
-        .btnControl {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-    
-        /* Espaçamento padrão para botões */
-        button {
-            margin: 0 10px;
-        }
-    
-        /* Container para tabelas com configuração de layout flexível */
-        .table-container {
-            display: flex;
-            justify-content: space-around;
-            width: 80%;
-            margin-top: 20px;
-            margin-right: 50px;
-            margin-left: 50px;
-        }
-        table {
-            width: 48%;
-            margin: 0;
-        }
-    
-        /* Estilo para campos individuais dentro de formulários */
-        .field {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-    
-        /* Estilo específico para labels nos campos */
-        .field label {
-            flex-basis: 30%;
-            margin-right: 10px;
-            font-size: 14px;
-            color: #333;
-        }
-    
-        /* Configurações de estilo para entradas de dados */
-        .field input {
-            flex-grow: 1;
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-    
-        /* Estilização específica para tabelas dentro de .certificate-container */
-        .certificate-container table {
-            width: 80%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin-right: 50px;
-            margin-left: 50px;
-        }
-    
-        /* Estilização de células e cabeçalhos de tabelas de certificados */
-        .certificate-container th, .certificate-container td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-    
-        /* Estilo para cabeçalhos de tabela para melhorar a legibilidade */
-        .certificate-container th {
-            background-color: #555; /* Cor de fundo mais escura para melhor contraste e destaque */
-            color: #fff; /* Texto branco para máximo contraste com o fundo */
-            font-weight: bold;
-        }
-    
-        /* Estilo básico para tabelas de certificados */
-        .certificate-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .certificate-table, .certificate-table th, .certificate-table td {
-            border: 1px solid black;
-        }
-        .certificate-table th, .certificate-table td {
-            padding: 10px;
-            text-align: left;
-        }
-    
-        /* Ajustes responsivos para dispositivos menores */
-        @media (max-width: 768px) {
-            .fields-container {
-                flex-direction: column; /* Muda a direção dos flex items para coluna em telas menores */
-            }
-        }
-    </style>
-    
-
+    <title>Export Html to Word Document with Styled Tables</title>
 </head>
-<div class="container">
-    <!-- Tabela para exibição de campos específicos do Brasil -->
-    <table id="brazilTable">
-        <tr>
-            <th>Campo</th>
-            <th>Valor</th>
-        </tr>
-        <!-- As células serão preenchidas dinamicamente com dados brasileiros -->
-    </table>
+<body>
 
-    <!-- Tabela para exibição de campos específicos dos Estados Unidos -->
-    <table id="americanTable">
-        <tr>
-            <th>Campo</th>
-            <th>Valor</th>
-        </tr>
-        <!-- As células serão preenchidas dinamicamente com dados americanos -->
-    </table>
-</div>
-
-<!-- Botões para enviar e limpar dados, com eventos de clique definidos -->
-<button onclick="transferirDados()">Enviar</button>
-<button onclick="limparDados()">Apagar</button>
-
-<div id="tableContainer" class="table-container">
-    <!-- Tabela para termos e suas traduções -->
-    <table id="minhaTabela1">
-        <thead>
+    <div class="certificate-container" id="exportContent">
+        <!-- Conteúdo pré-definido para demonstração -->
+        <table class="certificate-table">
+            <tr><th id="title" colspan="5" style="background-color: #4CAF50; color: white;">BIRTH CERTIFICATE</th></tr>
+            <tr><td id="name" colspan="5" style="background-color: #f2f2f2;">John Doe</td></tr>
+            <tr><td id="ssn" colspan="5" style="background-color: #f9f9f9;">123-45-6789</td></tr>
+            <tr><td id="registration" colspan="5" style="background-color: #f9f9f9;">AB-123456</td></tr>
             <tr>
-                <th>Termo</th>
-                <th>Tradução</th>
+                <td id="dob">01/01/1990</td>
+                <td id="birth_city_state">New York, NY</td>
+                <td id="registration_city_state">Albany, NY</td>
+                <td id="hospital">Saint Hospital</td>
+                <td id="gender">Male</td>
             </tr>
-        </thead>
-        <tbody>
-            <!-- Linhas serão adicionadas dinamicamente pelo JavaScript -->
-        </tbody>
-    </table>
+            <!-- Mais linhas aqui se necessário -->
+        </table>
+    </div>
 
-    <!-- Outra tabela para termos e suas traduções -->
-    <table id="minhaTabela2">
-        <thead>
-            <tr>
-                <th>Termo</th>
-                <th>Tradução</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Linhas serão adicionadas dinamicamente pelo JavaScript -->
-        </tbody>
-    </table>
-</div>
+    <button onclick="Export2Doc('exportContent', 'birth_certificate');">Export as Doc</button>
 
-<!-- Área para exibição de certificados -->
-<!-- Área para exibição de certificados -->
-<div class="certificate-container">
-    <!-- Tabela de certidão de nascimento com layout especificado -->
-    <table class="certificate-table">
-        <tr><th id="title" colspan="5">BIRTH CERTIFICATE</th></tr>
-        <tr><td id="name" colspan="5"></td></tr>
-        <!-- Campos adicionais com informações de registro -->
-        <tr><td id="ssn" colspan="5"></td></tr>
-        <tr><td id="registration" colspan="5"></td></tr>
-        <!-- Informações detalhadas do nascimento -->
-        <tr>
-            <td id="dob"></td>
-            <td id="birth_city_state"></td>
-            <td id="registration_city_state"></td>
-            <td id="hospital"></td>
-            <td id="gender"></td>
-        </tr>
-        <!-- Informações da família e gêmeos se aplicável -->
-        <tr>
-            <td id="mother"></td>
-            <td id="maternal_grandparents"></td>
-            <td id="twins"></td>
-            <td id="registration_date"></td>
-            <td id="birth_registration_number"></td>
-        </tr>
-        <!-- Linha reservada para possíveis emendas ao registro -->
-        <tr><td id="amendment" colspan="5"></td></tr>
-        <!-- Notas adicionais sobre o registro -->
-        <tr><td id="registration_notes" colspan="5"></td></tr>
-        <!-- Cabeçalhos para tipos de documentos relacionados -->
-        <tr>
-            <td id="document_type"></td>
-            <td id="number"></td>
-            <td id="issuance_date"></td>
-            <td id="issuance_agency"></td>
-            <td id="validity_date"></td>
-        </tr>
-        <!-- Campos que serão preenchidos com detalhes dos documentos -->
-        <tr>
-            <td>Voter Card</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <!-- Continuação de campos de documentos -->
-        <tr>
-            <td id="document_type_2"></td>
-            <td id="zone_section"></td>
-            <td id="city"></td>
-            <td id="state"></td>
-            <td colspan="1"></td>
-        </tr>
-        <!-- Detalhes de localização residencial e tipo sanguíneo -->
-        <tr>
-            <td id="residential_zip_code"></td>
-            <td></td>
-            <td></td>
-            <td id="blood_type"></td>
-            <td></td>
-        </tr>
-    </table>
-    <!-- Tabela para selos de validação -->
-    <table class="stamp-table">
-        <tr>
-            <td id="stamp_1">Stamp here</td>
-            <td id="stamp_2">Stamp here</td>
-            <td id="stamp_3">Stamp here</td>
-            <td id="stamp_4">Stamp here</td>
-        </tr>
-    </table>
+    <script>
+    function Export2Doc(element, filename = ''){
+        var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Word</title><style>table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 8px; } th { background-color: #4CAF50; color: white; } .certificate-table td { background-color: #f9f9f9; } </style></head><body>";
+        var postHtml = "</body></html>";
+        var html = preHtml + document.getElementById(element).innerHTML + postHtml;
 
-    <button id="loadDataButton">Carregar Dados</button>
-
-</div>
-
-
-<!-- Scripts -->
-<!-- Scripts -->
-<script>
-    // Funções auxiliares
-    function sanitizeIdName(value) {
-        return value.replace(/[^a-zA-Z0-9]/g, '');
-    }
-
-    function addField(divId, fieldName) {
-        const div = document.getElementById(divId);
-        const fieldDiv = document.createElement('div');
-        fieldDiv.className = 'field';
-        const safeName = sanitizeIdName(fieldName);
-        fieldDiv.innerHTML = `
-            <label for="${safeName}">${fieldName}</label>
-            <input type="text" id="${safeName}" name="${safeName}">
-        `;
-        div.appendChild(fieldDiv);
-    }
-
-
-
-
-
-const fieldMapping = {
-    "Número do Registro": "REGISTRATION NUMBER OF ALIVE BIRTH",
-    "Data de Emissão": "ISSUANCE DATE",
-    "Nome do Registrado": "NAME",
-    "Sexo": "GENDER",
-    "Data de Nascimento": "DATE AND TIME OF BIRTH",
-    "Hora de Nascimento": "DATE AND TIME OF BIRTH", // Mapeamento confirmado
-    "Local de Nascimento": "PLACE OF BIRTH, CITY AND STATE",
-    "Cidade e Estado de Nascimento": "CITY AND STATE OF BIRTH", // Adicionado ao mapeamento
-    "Nome do Pai": "FATHER",
-    "Nome da Mãe": "MOTHER",
-    "Avós Paternos": "PATERNAL GRANDPARENTS",
-    "Avós Maternos": "MATERNAL GRANDPARENTS",
-    "Gêmeos": "TWINS",
-    "Nome e Registro dos Gêmeos": "NAME AND REGISTRATION OF TWINS",
-    "Data de Registro": "DATE OF REGISTRATION",
-    "Notas do Registro": "REGISTRATION NOTES",
-    "Tipo de Documento": "DOCUMENT TYPE",
-    "Número": "NUMBER",
-    "Cartão de Segurança Social": "SOCIAL SECURITY CARD",
-    "Matrícula": "REGISTRATION",
-    "Cidade e Estado do Registro": "CITY AND STATE OF REGISTRATION",
-    "Notas alterações a adicionar":"NOTES AMENDMENTS TO ADD",
-    "Observações": "OBSERVATIONS" // Mapeamento para o novo campo adicionado
-};
-
-function populateTable(tableId, fields, isInput) {
-    const table = document.getElementById(tableId);
-    fields.forEach(field => {
-        const row = document.createElement('tr');
-        const th = document.createElement('th');
-        th.textContent = field;
-        row.appendChild(th);
-
-        const td = document.createElement('td');
-        if (isInput) {
-            const input = document.createElement('input');
-            input.id = `br_${field.replace(/\s+/g, '_')}`; // Cria um ID seguro para o HTML
-            input.setAttribute('oninput', `validateInput(this, '${field}')`);
-            td.appendChild(input);
-        } else {
-            td.id = `us_${field.replace(/\s+/g, '_')}`; // Cria um ID seguro para o HTML
-        }
-        row.appendChild(td);
-        table.appendChild(row);
-    });
-}
-
-function transferirDados() {
-    Object.keys(fieldMapping).forEach(brField => {
-        const brInputId = `br_${brField.replace(/\s+/g, '_')}`;
-        const usTdId = `us_${fieldMapping[brField].replace(/\s+/g, '_')}`;
-
-        const brInput = document.getElementById(brInputId);
-        const usTd = document.getElementById(usTdId);
-
-        if (brInput && usTd) {
-            let maskedValue = applyMask(brInput.value, brField);
-
-            usTd.innerHTML = '';  // Limpa a célula antes de adicionar o novo input
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = maskedValue;
-            usTd.appendChild(input); // Adiciona o novo input à célula
-        }
-    });
-}
-
-function limparDados() {
-    document.querySelectorAll('input').forEach(input => input.value = '');
-    document.querySelectorAll('td[id^="us_"]').forEach(td => td.innerHTML = ''); // Limpa os inputs
-}
-
-function validateInput(input, field) {
-    // Implementação de validações específicas para cada tipo de campo
-    let value = input.value;
-    // ... (validações permanecem como você definiu)
-}
-
-function applyMask(value, field) {
-    // Implementação de mascaramento específico para cada tipo de campo
-    // ... (mascaramento permanece como você definiu)
-}
-
-// Populando as tabelas
-// Campos da tabela brasileira atualizados
-const fieldsBrazilian = [
-    "Número do Registro", "Data de Emissão", "Nome do Registrado", "Sexo", "Data de Nascimento",
-    "Hora de Nascimento", "Local de Nascimento", "Cidade e Estado de Nascimento", // Campo adicionado
-    "Nome do Pai", "Nacionalidade do Pai",
-    "Idade do Pai na Data do Nascimento", "Profissão do Pai", "Nome da Mãe",
-    "Nacionalidade da Mãe", "Idade da Mãe na Data do Nascimento", "Profissão da Mãe",
-    "Avós Paternos", "Avós Maternos", "Testemunhas", "Observações", // Campo já existente, garantindo mapeamento
-    "Matrícula", "Gêmeos", "Nome e Registro dos Gêmeos", "Data de Registro", 
-    "Notas do Registro", "Tipo de Documento", "Número", "Cartão de Segurança Social",
-    "Cidade e Estado do Registro","Notas alterações a adicionar"
-];
-
-// Campos da tabela americana atualizados
-const fieldsAmerican = [
-    "REGISTRATION NUMBER OF ALIVE BIRTH", "ISSUANCE DATE", "NAME", "GENDER", "DATE AND TIME OF BIRTH",
-    "PLACE OF BIRTH, CITY AND STATE", "FATHER", "MOTHER", "PATERNAL GRANDPARENTS", "MATERNAL GRANDPARENTS",
-    "TWINS", "NAME AND REGISTRATION OF TWINS", "DATE OF REGISTRATION", "NOTES AMENDMENTS TO ADD", 
-    "REGISTRATION NOTES", "DOCUMENT TYPE", "NUMBER", "SOCIAL SECURITY CARD", "REGISTRATION",
-    "CITY AND STATE OF BIRTH", "CITY AND STATE OF REGISTRATION", "OBSERVATIONS" // Campo adicionado
-];
-
-populateTable('brazilTable', fieldsBrazilian, true);
-populateTable('americanTable', fieldsAmerican, false);
-
-
-
-
-// Configuração do evento de clique para o botão
-document.addEventListener('DOMContentLoaded', function() {
-    const loadDataButton = document.getElementById('loadDataButton');
-    loadDataButton.addEventListener('click', populateData);
-});
-
-
-
-
-
-
-
-        // Preenchimento de tabelas
-        const dadosTabela = [
-                { termo: "Assinatura do Oficial/Substituto", traducao: "Officer/Substitute's Signature" },
-                { termo: "Assinatura ilegível", traducao: "Illegible Signature" },
-                { termo: "Assinatura Digital", traducao: "Digital Signature" },
-                { termo: "Selo de Autenticação – Poder Judiciário", traducao: "Authentication Seal – Judiciary" },
-                { termo: "Carimbo do Cartório", traducao: "Notary's Stamp" },
-                { termo: "Selo de Fiscalização", traducao: "Inspection Seal" },
-                { termo: "Código de Segurança", traducao: "Security Code" },
-                { termo: "Verificado por", traducao: "Verified by" },
-                { termo: "Assinado à mão", traducao: "Hand Signed" },
-                { termo: "Assinatura Eletrônica Verificada", traducao: "Verified Electronic Signature" },
-                { termo: "Autenticado por", traducao: "Authenticated by" },
-                { termo: "Emitido por", traducao: "Issued by" },
-                { termo: "Registrado sob", traducao: "Registered under" },
-                { termo: "Número de Registro", traducao: "Registration Number" },
-                { termo: "Data de Emissão", traducao: "Issue Date" },
-                { termo: "Data de Registro", traducao: "Registration Date" },
-                { termo: "Selo do Notário", traducao: "Notary Seal" },
-                { termo: "Selo Digital de Segurança", traducao: "Digital Security Seal" },
-                { termo: "Autorizado por", traducao: "Authorized by" },
-                { termo: "Validade do Documento", traducao: "Document Validity" },
-                { termo: "Carimbo da Data", traducao: "Date Stamp" },
-                { termo: "Documento sem Alterações", traducao: "Document Unaltered" },
-                { termo: "Verificação de Autenticidade", traducao: "Authenticity Verification" },
-                { termo: "Certificado por", traducao: "Certified by" },
-                { termo: "Legalizado perante", traducao: "Legalized before" },
-                { termo: "Apostilado conforme", traducao: "Apostilled in accordance with" },
-                { termo: "Tradução Juramentada", traducao: "Sworn Translation" },
-                { termo: "Reconhecido em Cartório", traducao: "Notarized" },
-                { termo: "Selo do Conselho Nacional de Justiça", traducao: "National Council of Justice Seal" },
-                { termo: "Selo de Conformidade", traducao: "Compliance Seal" }
-            ];  
-
-        const splitIndex = 15;
-        const corpoTabela1 = document.querySelector("#minhaTabela1 tbody");
-        const corpoTabela2 = document.querySelector("#minhaTabela2 tbody");
-        
-        dadosTabela.forEach((item, index) => {
-            const targetTableBody = index < splitIndex ? corpoTabela1 : corpoTabela2;
-            var linha = targetTableBody.insertRow();
-            var celulaTermo = linha.insertCell(0);
-            var celulaTraducao = linha.insertCell(1);
-            celulaTermo.textContent = item.termo;
-            celulaTraducao.textContent = item.traducao;
+        var blob = new Blob(['\ufeff', html], {
+            type: 'application/msword'
         });
 
-        function displayDataInCertificate() {
-    const fieldMapping = {
-        'REGISTRATION NUMBER OF ALIVE BIRTH': 'registration',
-        'ISSUANCE DATE': 'issuance_date',
-        'NAME': 'name',
-        'GENDER': 'gender',
-        'DATE AND TIME OF BIRTH': 'dob',
-        'PLACE OF BIRTH, CITY AND STATE': 'birth_city_state',
-        'MOTHER': 'mother',
-        'PATERNAL GRANDPARENTS': 'paternal_grandparents', // Adicione ao HTML se necessário
-        'MATERNAL GRANDPARENTS': 'maternal_grandparents',
-        'TWINS': 'twins',
-        'DATE OF REGISTRATION': 'registration_date',
-        'NOTES AMENDMENTS TO ADD': 'amendment',
-        'REGISTRATION NOTES': 'registration_notes',
-        'DOCUMENT TYPE': 'document_type',
-        'NUMBER': 'number',
-        'SOCIAL SECURITY CARD': 'ssn',
-        'REGISTRATION': 'registration',
-        'CITY AND STATE OF BIRTH': 'birth_city_state',
-        'CITY AND STATE OF REGISTRATION': 'registration_city_state',
-        // Adicione mais mapeamentos conforme necessário
-    };
+        var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
 
-    Object.keys(fieldMapping).forEach(field => {
-        const usTdId = `us_${field.replace(/\s+/g, '_')}`;
-        const certFieldId = fieldMapping[field];
+        filename = filename ? filename + '.doc' : 'document.doc';
 
-        const usInput = document.querySelector(`#${usTdId} input`);
-        const certField = document.getElementById(certFieldId);
+        var downloadLink = document.createElement("a");
+        document.body.appendChild(downloadLink);
 
-        if (usInput && certField) {
-            certField.textContent = usInput.value;  // Transfere o valor do input para o campo específico na tabela
+        if (navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            downloadLink.href = url;
+            downloadLink.download = filename;
+            downloadLink.click();
         }
-    });
-}
 
-document.getElementById('loadDataButton').addEventListener('click', displayDataInCertificate);
-
-    
-</script>
-
-
-      
-    
+        document.body.removeChild(downloadLink);
+    }
+    </script>
 </body>
 </html>
