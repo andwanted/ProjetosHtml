@@ -18,23 +18,49 @@
     
         /* Estilização do container principal */
         .container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%;
         }
+
         .container table {
             border-collapse: collapse;
-            width: 50%;
+            width: 90%;
             margin-right: 20px;
+            background-color: #ccc;
         }
         .container th, td {
             border: 1px solid #333; /* Bordas escuras para destacar elementos e melhorar o contraste */
             padding: 8px;
             text-align: left;
         }
+
         .container button {
-            margin-top: 20px;
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:18px;
+        border-radius:4px;
+        padding-left:10px;
+        padding-right:10px;
+        padding-top:5px;
+        padding-bottom:5px;
+        color:#ffffff;
+        background-color:#f70400;
+        outline:none;
+        border:none;
+        cursor:pointer;
+        display:inline-block;
+        text-decoration: none;
+        transition: .4s;
         }
+
+        .container button:hover {
+        color:#ffffff;
+        background-color:#de6503;
+
+        }
+
+        
     
         /* Layout para agrupamento de campos de formulário */
         .fields-container {
@@ -95,42 +121,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-    
-        /* Estilização específica para tabelas dentro de .certificate-container */
-        .certificate-container table {
-            width: 80%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin-right: 50px;
-            margin-left: 50px;
-        }
-    
-        /* Estilização de células e cabeçalhos de tabelas de certificados */
-        .certificate-container th, .certificate-container td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-    
-        /* Estilo para cabeçalhos de tabela para melhorar a legibilidade */
-        .certificate-container th {
-            background-color: #555; /* Cor de fundo mais escura para melhor contraste e destaque */
-            color: #fff; /* Texto branco para máximo contraste com o fundo */
-            font-weight: bold;
-        }
-    
-        /* Estilo básico para tabelas de certificados */
-        .certificate-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .certificate-table, .certificate-table th, .certificate-table td {
-            border: 1px solid black;
-        }
-        .certificate-table th, .certificate-table td {
-            padding: 10px;
-            text-align: left;
-        }
+
     
         /* Ajustes responsivos para dispositivos menores */
         @media (max-width: 768px) {
@@ -152,6 +143,10 @@
         <!-- As células serão preenchidas dinamicamente com dados brasileiros -->
     </table>
 
+    <!-- Botões para enviar e limpar dados, com eventos de clique definidos -->
+        <button onclick="transferirDados()">Enviar</button>
+        <button onclick="limparDados()">Apagar</button>
+
     <!-- Tabela para exibição de campos específicos dos Estados Unidos -->
     <table id="americanTable">
         <tr>
@@ -162,9 +157,7 @@
     </table>
 </div>
 
-<!-- Botões para enviar e limpar dados, com eventos de clique definidos -->
-<button onclick="transferirDados()">Enviar</button>
-<button onclick="limparDados()">Apagar</button>
+
 
 <div id="tableContainer" class="table-container">
     <!-- Tabela para termos e suas traduções -->
@@ -195,66 +188,80 @@
 </div>
 
 <!-- Área para exibição de certificados -->
-<!-- Área para exibição de certificados -->
-<div class="certificate-container">
+<div class="certificate-container" id="exportContent">
     <!-- Tabela de certidão de nascimento com layout especificado -->
-    <table class="certificate-table">
-        <tr><th id="title" colspan="5">BIRTH CERTIFICATE</th></tr>
-        <tr><td id="name" colspan="5"></td></tr>
-        <!-- Campos adicionais com informações de registro -->
-        <tr><td id="ssn" colspan="5"></td></tr>
-        <tr><td id="registration" colspan="5"></td></tr>
-        <!-- Informações detalhadas do nascimento -->
-        <tr>
-            <td id="dob"></td>
-            <td id="birth_city_state"></td>
-            <td id="registration_city_state"></td>
-            <td id="hospital"></td>
-            <td id="gender"></td>
+    <table class="certificate-table" style="border-collapse: collapse; width: 100%;">
+        <!-- Linha centralizada sem borda -->
+        <tr style="text-align: center; border: none;">
+            <th id="title" colspan="5" style="border: none;">BIRTH CERTIFICATE</th>
         </tr>
-        <!-- Informações da família e gêmeos se aplicável -->
-        <tr>
-            <td id="mother"></td>
-            <td id="maternal_grandparents"></td>
-            <td id="twins"></td>
-            <td id="registration_date"></td>
-            <td id="birth_registration_number"></td>
+        <!-- Linha centralizada sem borda -->
+        <tr style="text-align: center; border: none;">
+            <td id="name" colspan="5" style="border: none;"></td>
         </tr>
-        <!-- Linha reservada para possíveis emendas ao registro -->
-        <tr><td id="amendment" colspan="5"></td></tr>
-        <!-- Notas adicionais sobre o registro -->
-        <tr><td id="registration_notes" colspan="5"></td></tr>
-        <!-- Cabeçalhos para tipos de documentos relacionados -->
+        <!-- Linha conteúdo alinhada à esquerda, com borda total -->
+        <tr style="text-align: left; border: 1px solid black;">
+            <td id="ssn" colspan="5"></td>
+        </tr>
+        <!-- Linha centralizada sem borda -->
+        <tr style="text-align: center; border: none;">
+            <td id="registration" colspan="5" style="border: none;"></td>
+        </tr>
+        <!-- Informações detalhadas do nascimento com bordas completas -->
         <tr>
-            <td id="document_type"></td>
-            <td id="number"></td>
-            <td id="issuance_date"></td>
-            <td id="issuance_agency"></td>
-            <td id="validity_date"></td>
+            <td id="dob" style="border: 1px solid black;"></td>
+            <td id="birth_city_state" style="border: 1px solid black;"></td>
+            <td id="registration_city_state" style="border: 1px solid black;"></td>
+            <td id="hospital" style="border: 1px solid black;"></td>
+            <td id="gender" style="border: 1px solid black;"></td>
+        </tr>
+        <!-- Informações da família e gêmeos se aplicável com bordas completas -->
+        <tr>
+            <td id="mother" style="border: 1px solid black;"></td>
+            <td id="maternal_grandparents" style="border: 1px solid black;"></td>
+            <td id="twins" style="border: 1px solid black;"></td>
+            <td id="registration_date" style="border: 1px solid black;"></td>
+            <td id="birth_registration_number" style="border: 1px solid black;"></td>
+        </tr>
+        <!-- Linha reservada para possíveis emendas ao registro com borda completa -->
+        <tr style="border: 1px solid black;">
+            <td id="amendment" colspan="5"></td>
+        </tr>
+        <!-- Notas adicionais sobre o registro com borda completa -->
+        <tr style="border: 1px solid black;">
+            <td id="registration_notes" colspan="5"></td>
+        </tr>
+        <!-- Cabeçalhos para tipos de documentos relacionados com borda completa -->
+        <tr>
+            <td id="document_type" style="border: 1px solid black;"></td>
+            <td id="number" style="border: 1px solid black;"></td>
+            <td id="issuance_date" style="border: 1px solid black;"></td>
+            <td id="issuance_agency" style="border: 1px solid black;"></td>
+            <td id="validity_date" style="border: 1px solid black;"></td>
         </tr>
         <!-- Campos que serão preenchidos com detalhes dos documentos -->
         <tr>
-            <td>Voter Card</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td id= "Voter Card" style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
         </tr>
         <!-- Continuação de campos de documentos -->
         <tr>
-            <td id="document_type_2"></td>
-            <td id="zone_section"></td>
-            <td id="city"></td>
-            <td id="state"></td>
-            <td colspan="1"></td>
+            <td id="document_type_2" style="border: 1px solid black;"></td>
+            <td id="zone_section" style="border: 1px solid black;"></td>
+            <td id="city" style="border: 1px solid black;"></td>
+            <td id="state" style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
         </tr>
         <!-- Detalhes de localização residencial e tipo sanguíneo -->
         <tr>
-            <td id="residential_zip_code"></td>
-            <td></td>
-            <td></td>
-            <td id="blood_type"></td>
-            <td></td>
+            <td id="residential_zip_code" style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
+            <td id="blood_type" style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
         </tr>
     </table>
     <!-- Tabela para selos de validação -->
@@ -267,14 +274,17 @@
         </tr>
     </table>
 
-    <button id="loadDataButton">Carregar Dados</button>
-
+    
 </div>
 
+    <button id="loadDataButton">Carregar Dados</button>
+    <button onclick="Export2Doc('exportContent', 'birth_certificate');">Exportar</button>
 
 <!-- Scripts -->
 <!-- Scripts -->
 <script>
+
+
     // Funções auxiliares
     function sanitizeIdName(value) {
         return value.replace(/[^a-zA-Z0-9]/g, '');
@@ -291,10 +301,6 @@
         `;
         div.appendChild(fieldDiv);
     }
-
-
-
-
 
 const fieldMapping = {
     "Número do Registro": "REGISTRATION NUMBER OF ALIVE BIRTH",
@@ -321,6 +327,9 @@ const fieldMapping = {
     "Notas alterações a adicionar":"NOTES AMENDMENTS TO ADD",
     "Observações": "OBSERVATIONS" // Mapeamento para o novo campo adicionado
 };
+
+
+
 
 function populateTable(tableId, fields, isInput) {
     const table = document.getElementById(tableId);
@@ -354,15 +363,23 @@ function transferirDados() {
 
         if (brInput && usTd) {
             let maskedValue = applyMask(brInput.value, brField);
-
-            usTd.innerHTML = '';  // Limpa a célula antes de adicionar o novo input
+            usTd.innerHTML = ''; // Limpa a célula antes de adicionar o novo input
             const input = document.createElement('input');
             input.type = 'text';
-            input.value = maskedValue;
+            input.value = maskedValue || ''; // Assegura que undefined não seja mostrado
             usTd.appendChild(input); // Adiciona o novo input à célula
+        } else {
+            console.log('Elemento não encontrado para:', brField);
         }
     });
 }
+
+function applyMask(value, field) {
+    // Aqui, retorna o valor sem alterações se não houver uma implementação específica
+    // Implemente o mascaramento conforme necessário
+    return value; // Retorna o valor diretamente para simplificar
+}
+
 
 function limparDados() {
     document.querySelectorAll('input').forEach(input => input.value = '');
@@ -375,10 +392,6 @@ function validateInput(input, field) {
     // ... (validações permanecem como você definiu)
 }
 
-function applyMask(value, field) {
-    // Implementação de mascaramento específico para cada tipo de campo
-    // ... (mascaramento permanece como você definiu)
-}
 
 // Populando as tabelas
 // Campos da tabela brasileira atualizados
@@ -408,18 +421,11 @@ populateTable('americanTable', fieldsAmerican, false);
 
 
 
-
 // Configuração do evento de clique para o botão
 document.addEventListener('DOMContentLoaded', function() {
     const loadDataButton = document.getElementById('loadDataButton');
     loadDataButton.addEventListener('click', populateData);
 });
-
-
-
-
-
-
 
         // Preenchimento de tabelas
         const dadosTabela = [
@@ -469,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         function displayDataInCertificate() {
-    const fieldMapping = {
+        const fieldMapping = {
         'REGISTRATION NUMBER OF ALIVE BIRTH': 'registration',
         'ISSUANCE DATE': 'issuance_date',
         'NAME': 'name',
@@ -507,11 +513,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('loadDataButton').addEventListener('click', displayDataInCertificate);
 
-    
+function Export2Doc(element, filename = ''){
+        var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Word</title><style>table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 8px; } th { background-color: #4CAF50; color: white; } .certificate-table td { background-color: #f9f9f9; } </style></head><body>";
+        var postHtml = "</body></html>";
+        var html = preHtml + document.getElementById(element).innerHTML + postHtml;
+
+        var blob = new Blob(['\ufeff', html], {
+            type: 'application/msword'
+        });
+
+        var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+
+        filename = filename ? filename + '.doc' : 'document.doc';
+
+        var downloadLink = document.createElement("a");
+        document.body.appendChild(downloadLink);
+
+        if (navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            downloadLink.href = url;
+            downloadLink.download = filename;
+            downloadLink.click();
+        }
+
+        document.body.removeChild(downloadLink);
+    }
+
+
 </script>
-
-
-      
+ 
     
 </body>
 </html>
