@@ -92,11 +92,10 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container-entrada">
-
-
-        
+       
         <!--Tabela brasileira -->
         
         <table class="tabela-brasileira">
@@ -381,73 +380,103 @@
     </div>
 
 
-    
-
-
-
 <script>
                 function traduzirDados() {
-                // Coletar dados brasileiros
-                var numeroRegistroBr = document.getElementById('numero-registro').value;
-                var dataEmissaoBr = document.getElementById('data-emissao').value;
-                var nomeRegistradoBr = document.getElementById('nome-registrado').value;
-                var sexoBr = document.getElementById('sexo').value;
-                var dataNascimentoBr = document.getElementById('data-nascimento').value;
-                var horaNascimentoBr = document.getElementById('hora-nascimento').value;
-                var localNascimentoBr = document.getElementById('local-nascimento').value;
-                var cidadeEstadoNascimentoBr = document.getElementById('cidade-estado-nascimento').value;
-                var nomePaiBr = document.getElementById('nome-pai').value;
-                var nomeMaeBr = document.getElementById('nome-mae').value;
-                var avosPaternosBr = document.getElementById('avos-paternos').value;
-                var avosMaternosBr = document.getElementById('avos-maternos').value;
-                var gemeosBr = document.getElementById('gemeos').value;
-                var nomeRegistroGemeosBr = document.getElementById('nome-registro-gemeos').value;
-                var dataRegistroBr = document.getElementById('data-registro').value;
-                var notasRegistroBr = document.getElementById('notas-registro').value;
+                    // Coletar dados brasileiros
+                    var numeroRegistroBr = document.getElementById('numero-registro').value;
+                    var dataEmissaoBr = document.getElementById('data-emissao').value;
+                    var nomeRegistradoBr = document.getElementById('nome-registrado').value;
+                    var sexoBr = document.getElementById('sexo').value;
+                    var dataNascimentoBr = document.getElementById('data-nascimento').value;
+                    var horaNascimentoBr = document.getElementById('hora-nascimento').value;
+                    var localNascimentoBr = document.getElementById('local-nascimento').value;
+                    var cidadeEstadoNascimentoBr = document.getElementById('cidade-estado-nascimento').value;
+                    var nomePaiBr = document.getElementById('nome-pai').value;
+                    var nomeMaeBr = document.getElementById('nome-mae').value;
+                    var avosPaternosBr = document.getElementById('avos-paternos').value;
+                    var avosMaternosBr = document.getElementById('avos-maternos').value;
+                    var gemeosBr = document.getElementById('gemeos').value;
+                    var nomeRegistroGemeosBr = document.getElementById('nome-registro-gemeos').value;
+                    var dataRegistroBr = document.getElementById('data-registro').value;
+                    var notasRegistroBr = document.getElementById('notas-registro').value;
 
-                // Atribuir dados americanos traduzidos
-                document.getElementById('registration-number').value = numeroRegistroBr;
-                document.getElementById('issuance-date').value = dataEmissaoBr;
-                document.getElementById('name').value = nomeRegistradoBr;
-                document.getElementById('gender').value = sexoBr === 'Masculino' ? 'Male' : 'Female';
-                document.getElementById('date-time-birth').value = `${dataNascimentoBr}T${horaNascimentoBr}`;
-                document.getElementById('place-birth-city-state').value = `${localNascimentoBr}, ${cidadeEstadoNascimentoBr}`;
-                document.getElementById('father').value = nomePaiBr;
-                document.getElementById('mother').value = nomeMaeBr;
-                document.getElementById('paternal-grandparents').value = avosPaternosBr;
-                document.getElementById('maternal-grandparents').value = avosMaternosBr;
-                document.getElementById('twins').value = gemeosBr;
-                document.getElementById('name-registration-twins').value = nomeRegistroGemeosBr;
-                document.getElementById('date-registration').value = dataRegistroBr;
-                document.getElementById('registration-notes').value = notasRegistroBr;
+                    // Atribuir dados americanos traduzidos
+                    document.getElementById('registration-number').value = numeroRegistroBr;
+                    document.getElementById('issuance-date').value = dataEmissaoBr;
+                    document.getElementById('name').value = nomeRegistradoBr;
+                    document.getElementById('gender').value = sexoBr === 'Masculino' ? 'Male' : 'Female';
+                    document.getElementById('date-time-birth').value = `${dataNascimentoBr}T${horaNascimentoBr}`;
+                    document.getElementById('place-birth-city-state').value = `${localNascimentoBr}, ${cidadeEstadoNascimentoBr}`;
+                    document.getElementById('father').value = nomePaiBr;
+                    document.getElementById('mother').value = nomeMaeBr;
+                    document.getElementById('paternal-grandparents').value = avosPaternosBr;
+                    document.getElementById('maternal-grandparents').value = avosMaternosBr;
+                    document.getElementById('twins').value = gemeosBr;
+                    document.getElementById('name-registration-twins').value = nomeRegistroGemeosBr;
+                    document.getElementById('date-registration').value = dataRegistroBr;
+                    document.getElementById('registration-notes').value = notasRegistroBr;
                  }
 
 
-        async function salvarDados() {
-            let dados = [];
+                 async function salvarDados() {
+                    // Array to store collected data from fields
+                    let dados = [];
 
-            // Seleciona todos os campos de entrada de texto, data, data e hora e áreas de texto
-            document.querySelectorAll('.tabela-american input[type="text"], .tabela-american input[type="date"], .tabela-american input[type="datetime-local"], .tabela-american textarea').forEach(input => {
-                // Acessa o rótulo associado a cada campo
-                const label = input.labels[0].innerText.trim();
-                dados.push(`${label}: ${input.value}`);
-            });
+                    // Get the value of the "Nome" field
+                    const nome = document.getElementById('name').value.trim();
 
-            const conteudo = dados.join('\n');
+                    // Select all text, date, datetime-local input fields and textareas in the "tabela-american" table
+                    document.querySelectorAll('.tabela-american input[type="text"], .tabela-american input[type="date"], .tabela-american input[type="datetime-local"], .tabela-american textarea').forEach(input => {
+                        // Get the associated label for each input field
+                        const label = input.labels[0].innerText.trim();
 
-            try {
-                const handle = await window.showSaveFilePicker({
-                    suggestedName: 'dados.txt',
-                    types: [{description: 'Text Files', accept: {'text/plain': ['.txt']}}],
-                });
-                const writable = await handle.createWritable();
-                await writable.write(conteudo);
-                await writable.close();
-                alert('Dados salvos com sucesso!');
-            } catch (err) {
-                console.error('Erro ao salvar o arquivo:', err);
-            }
-        }
+                        // Concatenate the label and input field value into a string and add to the "dados" array
+                        dados.push(`${label}: ${input.value}`);
+                    });
+
+                    // Convert the "dados" array into a string with each element on a new line
+                    const conteudo = dados.join('\n');
+
+                    // Check if any required fields are empty
+                    const requiredFields = ['name', /* Add other required field IDs here */];
+                    const emptyFields = requiredFields.filter(fieldId => {
+                        const fieldValue = document.getElementById(fieldId).value.trim();
+                        return !fieldValue;
+                    });
+
+                    if (emptyFields.length > 0) {
+                        alert(`Os seguintes campos obrigatórios estão vazios: ${emptyFields.join(', ')}. Por favor, preencha-os antes de salvar.`);
+                        return; // Prevent saving if required fields are empty
+                    }
+
+                    // Attempt to save the content to a file
+                    try {
+                        // Open the file picker dialog for saving
+                        const handle = await window.showSaveFilePicker({
+                        // Suggested filename using the "Nome" field value or "undefined" if empty
+                        suggestedName: `${nome ? nome : 'indefinido'}.txt`,
+                        // Define allowed file types for saving (only text files)
+                        types: [{ description: 'Arquivos de Texto', accept: { 'text/plain': ['.txt'] } }],
+                        });
+
+                        // Get the writable object to write the file content
+                        const writable = await handle.createWritable();
+
+                        // Write the content of the "dados" array to the file
+                        await writable.write(conteudo);
+
+                        // Close the writable object
+                        await writable.close();
+
+                        // Display success message
+                        alert('Dados salvos com sucesso!');
+                    } catch (err) {
+                        // Display error message if there's a problem saving the file
+                        console.error('Erro ao salvar o arquivo:', err);
+                    }
+                }
+
+
 
 
 
