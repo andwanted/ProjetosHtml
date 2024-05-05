@@ -104,29 +104,33 @@
         <!-- Campos de texto, números e datas com validações específicas -->
         <tr>
             <td>
-                <label for="numero-registro">Número do Registro</label>
-                <input type="text" id="numero-registro" pattern="\d*" placeholder="Apenas números">
-            </td>
-            <td>
-                <label for="data-emissao">Data de Emissão</label>
-                <input type="text" id="data-emissao" onblur="formatDate(this);" placeholder="dd/MM/aaaa">
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <label for="nome-registrado">Nome do Registrado</label>
                 <input type="text" id="nome-registrado" oninput="this.value = this.value.toUpperCase().replace(/[^a-zA-Z\s]/g, '')" placeholder="Apenas letras">
             </td>
             <td>
-                <label for="sexo">Sexo</label>
-                <input type="text" id="sexo" maxlength="1" pattern="[MF]" placeholder="M ou F">
+                <label for="cartao-seguranca-social">Cartão de Segurança Social</label>
+                <input type="text" id="cartao-seguranca-social" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00">
             </td>
+       </tr>
+       <tr>     
+            <td>
+                <label for="numero-registro">Número do Registro</label>
+                <input type="text" id="numero-registro" pattern="\d*" placeholder="Apenas números">
+            </td>
+
+            <td>
+                <label for="matricula">Matrícula</label>
+                <input type="text" id="matricula" pattern="\d*" placeholder="Apenas números">
+            </td>
+           
+
         </tr>
         <tr>
             <td>
                 <label for="data-nascimento">Data de Nascimento</label>
                 <input type="text" id="data-nascimento" onblur="formatDate(this);" placeholder="dd/MM/aaaa">
             </td>
+
             <td>
                 <label for="hora-nascimento">Hora de Nascimento</label>
                 <input type="time" id="hora-nascimento">
@@ -134,14 +138,46 @@
         </tr>
         <tr>
             <td>
-                <label for="local-nascimento">Local de Nascimento</label>
-                <input type="text" id="local-nascimento">
-            </td>
-            <td>
                 <label for="cidade-estado-nascimento">Cidade e Estado de Nascimento</label>
                 <input type="text" id="cidade-estado-nascimento">
             </td>
+            
+            <td>
+                <label for="cidade-estado-registro">Cidade e Estado do Registro</label>
+                <input type="text" id="cidade-estado-registro">
+            </td>
         </tr>
+        <tr>
+            <td>
+                <label for="local-nascimento">Local de Nascimento</label>
+                <input type="text" id="local-nascimento">
+            </td>
+
+            <td>
+                <label for="sexo">Sexo</label>
+                <input type="text" id="sexo" maxlength="1" pattern="[MF]" placeholder="M ou F">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="tipo-documento">Tipo de Documento</label>
+                <input type="text" id="tipo-documento">
+            </td>
+            <td>
+                <label for="numero">Número do Documento</label>
+                <input type="text" id="numero" pattern="\d*">
+            </td>
+            <td>
+                <label for="data-emissao">Data de Emissão</label>
+                <input type="text" id="data-emissao" onblur="formatDate(this);" placeholder="dd/MM/aaaa">
+            </td>
+          
+        </tr>
+        <tr>
+
+
+        </tr>
+       
         <tr>
             <td>
                 <label for="nome-pai">Nome do Pai</label>
@@ -196,12 +232,13 @@
                 <label for="avos-paternos">Avós Paternos</label>
                 <input type="text" id="avos-paternos">
             </td>
-        </tr>
-        <tr>
             <td colspan="2">
                 <label for="avos-maternos">Avós Maternos</label>
                 <input type="text" id="avos-maternos">
             </td>
+        </tr>
+        <tr>
+         
         </tr>
         <tr>
             <td colspan="2">
@@ -216,10 +253,7 @@
             </td>
         </tr>
         <tr>
-            <td>
-                <label for="matricula">Matrícula</label>
-                <input type="text" id="matricula" pattern="\d*" placeholder="Apenas números">
-            </td>
+           
             <td>
                 <label for="gemeos">Gêmeos</label>
                 <select id="gemeos" onchange="handleTwins(this);">
@@ -227,8 +261,6 @@
                     <option value="Sim">Sim</option>
                 </select>
             </td>
-        </tr>
-        <tr>
             <td>
                 <label for="nome-registro-gemeos">Nome e Registro dos Gêmeos</label>
                 <input type="text" id="nome-registro-gemeos" disabled>
@@ -239,35 +271,21 @@
             </td>
         </tr>
         <tr>
-            <td>
-                <label for="notas-registro">Notas do Registro</label>
-                <textarea id="notas-registro" rows="2"></textarea>
-            </td>
-            <td>
-                <label for="tipo-documento">Tipo de Documento</label>
-                <input type="text" id="tipo-documento">
-            </td>
+           
         </tr>
         <tr>
-            <td>
-                <label for="numero">Número</label>
-                <input type="text" id="numero" pattern="\d*">
-            </td>
-            <td>
-                <label for="cartao-seguranca-social">Cartão de Segurança Social</label>
-                <input type="text" id="cartao-seguranca-social" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="cidade-estado-registro">Cidade e Estado do Registro</label>
-                <input type="text" id="cidade-estado-registro">
-            </td>
             <td>
                 <label for="notas-alteracoes">Notas alterações a adicionar</label>
                 <textarea id="notas-alteracoes" rows="2"></textarea>
             </td>
+            <td>
+                <label for="notas-registro">Notas do Registro</label>
+                <textarea id="notas-registro" rows="2"></textarea>
+            </td>
+           
         </tr>
+        
+    
     </table>     
 
         <button onclick="transferAndTransformData()">Preencher</button>
