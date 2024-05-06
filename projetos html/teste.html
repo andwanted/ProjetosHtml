@@ -167,14 +167,13 @@
                 <label for="numero">Número do Documento</label>
                 <input type="text" id="numero" pattern="\d*">
             </td>
+           
+        </tr>
+        <tr>
             <td>
                 <label for="data-emissao">Data de Emissão</label>
                 <input type="text" id="data-emissao" onblur="formatDate(this);" placeholder="dd/MM/aaaa">
             </td>
-          
-        </tr>
-        <tr>
-
 
         </tr>
        
@@ -232,13 +231,13 @@
                 <label for="avos-paternos">Avós Paternos</label>
                 <input type="text" id="avos-paternos">
             </td>
+           
+        </tr>
+        <tr>
             <td colspan="2">
                 <label for="avos-maternos">Avós Maternos</label>
                 <input type="text" id="avos-maternos">
             </td>
-        </tr>
-        <tr>
-         
         </tr>
         <tr>
             <td colspan="2">
@@ -265,13 +264,13 @@
                 <label for="nome-registro-gemeos">Nome e Registro dos Gêmeos</label>
                 <input type="text" id="nome-registro-gemeos" disabled>
             </td>
+
+        </tr>
+        <tr>
             <td>
                 <label for="data-registro">Data de Registro</label>
                 <input type="date" id="data-registro">
             </td>
-        </tr>
-        <tr>
-           
         </tr>
         <tr>
             <td>
@@ -295,34 +294,45 @@
         <table class="tabela-american">
             <tr>
                 <td>
-                    <label for="registration-number-of-alive-birth">Registration Number of Alive Birth</label>
-                    <input type="text" id="registration-number" placeholder="Enter registration number">
-                </td>
-                <td>
-                    <label for="issuance-date">Issuance Date</label>
-                    <input type="date" id="issuance-date">
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <label for="name">Name</label>
                     <input type="text" id="name" placeholder="Full name">
                 </td>
                 <td>
-                    <label for="gender">Gender</label>
-                    <input type="text" id="gender" placeholder="Gender">
+                    <label for="social-security-card">Social Security Card</label>
+                    <input type="text" id="social-security-card" value="075-89-4956">
                 </td>
             </tr>
             <tr>
+                <td>
+                    <label for="registration">Registration</label>
+                    <input type="text" id="registration" placeholder="Registration info">
+                </td>  
                 <td colspan="2">
                     <label for="date-time-birth">Date and Time of Birth</label>
                     <input type="datetime-local" id="date-time-birth" value="1983-07-25T05:30">
+                </td>
+                
+            </tr>
+            <tr>
+                <td>
+                    <label for="city-state-birth">City and State of Birth</label>
+                    <input type="text" id="city-state-birth" placeholder="City, State">
+                </td>
+                <td>
+                    <label for="city-state-registration">City and State of Registration</label>
+                    <input type="text" id="city-state-registration" placeholder="City, State">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <label for="place-birth-city-state">Place of Birth, City and State</label>
                     <input type="text" id="place-birth-city-state" placeholder="City, State">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="gender">Gender</label>
+                    <input type="text" id="gender" placeholder="Gender">
                 </td>
             </tr>
             <tr>
@@ -366,6 +376,13 @@
                 </td>
             </tr>
             <tr>
+                <td>
+                    <label for="issuance-date">Issuance Date</label>
+                    <input type="date" id="issuance-date">
+                </td>
+            </tr>        
+
+            <tr>
                 <td colspan="2">
                     <label for="registration-notes">Registration Notes</label>
                     <textarea id="registration-notes" rows="2"></textarea>
@@ -382,25 +399,14 @@
                 </td>
             </tr>
             <tr>
+
                 <td>
-                    <label for="social-security-card">Social Security Card</label>
-                    <input type="text" id="social-security-card" value="075-89-4956">
+                    <label for="registration-number-of-alive-birth">Registration Number of Alive Birth</label>
+                    <input type="text" id="registration-number" placeholder="Enter registration number">
                 </td>
-                <td>
-                    <label for="registration">Registration</label>
-                    <input type="text" id="registration" placeholder="Registration info">
-                </td>
+ 
             </tr>
-            <tr>
-                <td>
-                    <label for="city-state-birth">City and State of Birth</label>
-                    <input type="text" id="city-state-birth" placeholder="City, State">
-                </td>
-                <td>
-                    <label for="city-state-registration">City and State of Registration</label>
-                    <input type="text" id="city-state-registration" placeholder="City, State">
-                </td>
-            </tr>
+
             <tr>
                 <td colspan="2">
                     <label for="observations">Observations</label>
