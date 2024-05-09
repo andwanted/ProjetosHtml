@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0; /* Cor de fundo clara para a página */
+}
+
+.container-entrada {
+    width: 90%;
+    margin: 20px auto;
+}
+
+button {
+    padding: 10px 20px; /* Espaçamento interno */
+    margin: 40px 40px;
+    background-color: #d57106; /* Cor de fundo verde */
+    color: white; /* Cor do texto */
+    font-size: 16px; /* Tamanho do texto */
+    border: none; /* Sem borda */
+    border-radius: 8px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor em forma de ponteiro */
+    transition: background-color 0.3s, transform 0.2s; /* Transições suaves para o hover */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra sutil para efeito 3D */
+    outline: none; /* Remove o contorno ao focar */
+
+}
+
+button:hover {
+    background-color: #d9922f; /* Cor de fundo mais escura ao passar o mouse */
+    transform: scale(1.05); /* Efeito de crescimento sutil */
+}
+
+
+.tabela-brasileira {
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+}
+.tabela-brasileira th, .tabela-brasileira td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+.tabela-brasileira label {
+    display: block;
+    color: #00394b;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.tabela-brasileira input, .tabela-brasileira textarea {
+    width: 95%;
+    padding: 8px;
+    box-shadow: 1px 1px 4px #ccc;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.tabela-american {
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+}
+.tabela-american th, .tabela-american td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+.tabela-american label {
+    display: block;
+    color: #00394b;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.tabela-american input, .tabela-american textarea {
+    width: 95%;
+    padding: 8px;
+    box-shadow: 1px 1px 4px #ccc;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.data-brasil{
+    border-color: #073162;
+}
+
+.data-brasil:focus {
+    border-color: #4A90E2;
+}
