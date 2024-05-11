@@ -1,16 +1,11 @@
-// src/app/docxHandler.js
-
 import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
-import { saveAs } from 'file-saver';  // Assumindo que você adicionou file-saver para salvar arquivos
-import FileSaver from 'file-saver'; // or
-const FileSaver = require('file-saver');
-
+import { saveAs } from 'file-saver';  // Only import what you need
 
 export function readDataFromText(text) {
     const data = {};
     const lines = text.split('\n');
-    lines.forEach(line => {
+    for (let line of lines) {
         if (line.includes(': ')) {
             const parts = line.split(': ');
             if (parts.length === 2) {
@@ -19,7 +14,7 @@ export function readDataFromText(text) {
                 data[key] = value;
             }
         }
-    });
+    }
     return data;
 }
 
@@ -45,4 +40,3 @@ export function loadAndReplaceData(docxContent, data) {
     });
     saveAs(out, "output.docx");
 }
-

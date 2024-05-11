@@ -1,10 +1,11 @@
 // Importações de funções de outros arquivos
-import { formatDateBRtoUS } from './js/dataFormatting.js';
-import { forceUppercaseAndLettersOnly, formatInputDate } from './js/inputFormatting.js';
-import { handleTwins } from './js/twinsHandling.js';
-import { transferAndTransformData } from './js/transferAndTransformData.js';
-import { salvarDados as dataSaving } from './js/dataSaving.js';
-import { readDataFromText, loadAndReplaceData } from './app/docxHandler.js';
+import { formatDateBRtoUS } from './dataFormatting.js';
+import { forceUppercaseAndLettersOnly, formatInputDate } from './inputFormatting.js';
+import { handleTwins } from './twinsHandling.js';
+import { transferAndTransformData } from './transferAndTransformData.js';
+import { salvarDados as dataSaving } from './dataSaving.js';
+import { readDataFromText, loadAndReplaceData } from '../app/docxHandler.js';
+
 
 // Esperar até que todo o conteúdo da página tenha sido carregado
 document.addEventListener('DOMContentLoaded', function () {

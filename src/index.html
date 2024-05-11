@@ -202,7 +202,7 @@
     
     </table>     
 
-        <button id="fillButton" onclick="transferAndTransformData()">Preencher</button>
+        <button id="btnTransferir" onclick="transferAndTransformData()">Preencher</button>
     
         <!--Tabela americana -->
 
@@ -340,18 +340,27 @@
         <button id="generateDocx">Generate DOCX</button>
     </div>
 
-    <script src="../dist/bundle.js"></script>
+   
+    <script src="../dist/main.7ea7d920865a360b37c1.js"></script>
+
+    
+
 
     <script type="module" src="js/index.js"></script>
 
 
      <!-- Scripts no final do body para garantir que o DOM esteja carregado -->
-     <script src="js/dataFormatting.js"></script>
-     <script src="js/inputFormatting.js"></script>
-     <script src="js/twinsHandling.js"></script>
-     <script src="js/transferAndTransformData.js"></script>
-     <script src="js/dataSaving.js"></script>
-     <script src="js/index.js"></script> <!-- Seu script principal que usa os módulos acima -->
+     <script src="./js/dataFormatting.js"></script>
+     <script src="./js/inputFormatting.js"></script>
+     <script src="./js/twinsHandling.js"></script>
+     <script src="./js/transferAndTransformData.js"></script>
+     <script src="./js/dataSaving.js"></script>
+     <script src="./js/buttonControl.js"></script>
+     <script src="./js/dateTransformations.js"></script>
+     <script src="./js/eventManagement.js"></script>
+     <script src="./js/dateTransformations.js"></script>
+     <script src="./app/docxHandler.js"></script>
+     <script src="./js/index.js"></script> <!-- Seu script principal que usa os módulos acima -->
  
  
     <script>
@@ -413,6 +422,11 @@
             }
         });
 
+
+    </script>
+
+    <script>
+        document.getElementById('btnTransferir').addEventListener('click', transferAndTransformData);
 
     </script>
     
